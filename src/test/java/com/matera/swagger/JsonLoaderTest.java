@@ -40,5 +40,10 @@ public class JsonLoaderTest {
 		Assert.assertEquals(jsonLoader.getBodyDomain().size(), 51);
 	}
 
+	@Test
+	public void shouldReturnTheUrl() {
+		Assert.assertEquals(jsonLoader.getUrl(), URL);
+	}
+	
 }
 
