@@ -1,4 +1,4 @@
-package com.matera.swagger;
+package com.matera.swagger.loader;
 
 import java.io.IOException;
 import java.io.InputStream;

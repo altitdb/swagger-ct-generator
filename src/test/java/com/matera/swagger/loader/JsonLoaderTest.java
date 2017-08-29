@@ -1,7 +1,9 @@
-package com.matera.swagger;
+package com.matera.swagger.loader;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.matera.swagger.loader.JsonLoader;
 
 import junit.framework.Assert;
 

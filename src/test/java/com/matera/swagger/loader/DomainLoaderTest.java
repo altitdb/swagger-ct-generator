@@ -1,4 +1,4 @@
-package com.matera.swagger;
+package com.matera.swagger.loader;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.matera.swagger.loader.DomainLoader;
 
 import junit.framework.Assert;
 
