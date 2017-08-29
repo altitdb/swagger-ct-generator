@@ -1,0 +1,7211 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1",
+    "title": "Internet Banking",
+    "description": "APIs REST do sistema de Internet Banking da MATERA Systems."
+  },
+  "host": "api-ibk.matera.com.br",
+  "basePath": "/api",
+  "paths": {
+    "/v1/account/balance/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }
+      ],
+      "get": {
+        "operationId": "GET_balance-account-agency-account",
+        "summary": "Show the status of account balance.",
+        "tags": [
+          "Account"
+        ],
+        "description": "The service retrieves the funds available on the bank account at the moment of the request.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Position date",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BalanceCurrentAccount"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/scheduling/{branch}/{account}": {
+      "get": {
+        "summary": "This service returns the scheduled operations",
+        "tags": [
+          "Scheduling"
+        ],
+        "description": "This service returns the scheduled operations",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "branch",
+            "in": "path",
+            "description": "Branch",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "account",
+            "in": "path",
+            "description": "Account",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/schedulingData"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/scheduling/cancel/{id}": {
+      "post": {
+        "summary": "Cancel an scheduled",
+        "tags": [
+          "Scheduling"
+        ],
+        "description": "This service delete an scheduled.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identifier",
+            "required": true,
+            "type": "number",
+            "format": "integer"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/beneficiary/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }
+      ],
+      "get": {
+        "operationId": "GET_beneficiary",
+        "summary": "Show the beneficiaries.",
+        "tags": [
+          "Beneficiary"
+        ],
+        "description": "Show the beneficiaries.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Type",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "TR",
+              "DE",
+              "DD"
+            ]
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BeneficiarySearch"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "POST_beneficiary",
+        "summary": "Add a new beneficiary.",
+        "tags": [
+          "Beneficiary"
+        ],
+        "description": "Add a new beneficiary.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BeneficiaryDetails"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/beneficiary/{branch}/{account}/{id}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Identifier",
+          "required": true,
+          "type": "integer"
+        }
+      ],
+      "post": {
+        "operationId": "POST_beneficiary-id",
+        "summary": "Update a beneficiary.",
+        "tags": [
+          "Beneficiary"
+        ],
+        "description": "Update a beneficiary.",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BeneficiarUpdateyDetails"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "GET_beneficiary_id",
+        "summary": "Show the beneficiaries.",
+        "tags": [
+          "Beneficiary"
+        ],
+        "description": "Show the beneficiaries.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Type",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "TR",
+              "DE",
+              "DD"
+            ]
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BeneficiarySearch"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DELETE_beneficiary-id",
+        "summary": "Delete a beneficiary.",
+        "tags": [
+          "Beneficiary"
+        ],
+        "description": "Delete a new beneficiary.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/investment/balance/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }
+      ],
+      "get": {
+        "operationId": "GET_balance-investment-agency-account",
+        "summary": "Show the status of investment balance.",
+        "tags": [
+          "Investment"
+        ],
+        "description": "Show the status of investment balance.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Position date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "product",
+            "in": "query",
+            "description": "Product code",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BalanceInvestiment"
+            }
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/investment/statement/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }
+      ],
+      "get": {
+        "operationId": "GET_statement-investment-branch-account",
+        "summary": "Show the status investment statement.",
+        "tags": [
+          "Investment"
+        ],
+        "description": "Show the status investment statement.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Start date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "product",
+            "in": "query",
+            "description": "Product code",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ExtractInvestment"
+            }
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/account/statement/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "number",
+          "format": "double"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "number",
+          "format": "double"
+        }
+      ],
+      "get": {
+        "operationId": "GET_statement-account-agency-account",
+        "summary": "This service lists all the transactions occurred in a bank account in a specific time range.",
+        "tags": [
+          "Account"
+        ],
+        "description": "This service lists all the transactions occurred in a bank account in a specific time range.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Start date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Statement"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/login": {
+      "post": {
+        "operationId": "POST_oauth-token",
+        "summary": "Authenticate and authorize an user.",
+        "tags": [
+          "Authentication"
+        ],
+        "description": "This service provide a valid access to client.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "The user login (Internet Banking)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "The user password (Internet Banking)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AccessDetails"
+            }
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/encrypted/login": {
+      "post": {
+        "operationId": "POST_oauth-token_encrypted",
+        "summary": "Authenticate and authorize an user.",
+        "tags": [
+          "Authentication"
+        ],
+        "description": "This service provide a valid access to client.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "formData",
+            "description": "The user login (Internet Banking)",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "The user password (Internet Banking) (encrypted)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AccessDetails"
+            }
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/qrcode": {
+      "get": {
+        "operationId": "GET-generate-qrcode",
+        "summary": "Generates a QRCode for mobile authentication.",
+        "tags": [
+          "Authentication"
+        ],
+        "description": "This service generates QRCode information for mobile authentication",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/QRAuthResponse"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/qrcode/{id}": {
+      "get": {
+        "operationId": "GET-qrcode-status",
+        "summary": "Gets the status of a given QRCode",
+        "tags": [
+          "Authentication"
+        ],
+        "description": "This service returns QRCode information for mobile authentication",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The qrcode id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/QRAuthResponse"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/qrcode/approve": {
+      "post": {
+        "operationId": "POST-qrcode-approve",
+        "summary": "Approves a QRCode Authentication",
+        "tags": [
+          "Authentication"
+        ],
+        "description": "This service approves a QRCode for mobile authentication",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QRApprovalRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/QRAuthResponse"
+            }
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/logout": {
+      "delete": {
+        "summary": "Closes user session",
+        "tags": [
+          "Authentication"
+        ],
+        "description": "Closes user session",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Security Header in format Base64",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/password/change/access": {
+      "post": {
+        "summary": "Change the user access password.",
+        "tags": [
+          "Authentication"
+        ],
+        "description": "This service change the user access password.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AuthPassword"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/password/change/unique": {
+      "post": {
+        "summary": "Change user transaction and access password.",
+        "tags": [
+          "Authentication"
+        ],
+        "description": "This service change the user transaction and access password.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/AuthPassword"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/withdraw/payment/boleto": {
+      "post": {
+        "operationId": "POST_payment",
+        "summary": "Creates a new payment.",
+        "tags": [
+          "Cashout"
+        ],
+        "description": "This service creates a new heading payment.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Payment"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifierTransactionPayment"
+            }
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/supporting-document/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch number reported in the URL.",
+          "required": true,
+          "type": "number",
+          "format": "integer"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account number reported in the URL.",
+          "required": true,
+          "type": "number",
+          "format": "integer"
+        }
+      ],
+      "get": {
+        "operationId": "GET_supporting-document-agency-account",
+        "summary": "Show the supporting document.",
+        "tags": [
+          "Supporting Document"
+        ],
+        "description": "This service enables the customer to consult their supporting document transactions. This service does not present the details of the operation, it shows the description of the transaction and date, only.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Initial date to search for supporting documents.",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End date to search for supporting documents.",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "situation",
+            "in": "query",
+            "description": "Supporting document situation.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SupportingDocument"
+            }
+          },
+          "400": {
+            "description": "It occurs when the parameters or business rules are not correct.",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "It occurs when the user authentication fail.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "It occurs when a parametrization problem or  the application settings are incorrect.",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/supporting-document/{branch}/{account}/{identifier}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch number reported in the URL.",
+          "required": true,
+          "type": "number",
+          "format": "integer"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account number reported in the URL.",
+          "required": true,
+          "type": "number",
+          "format": "integer"
+        },
+        {
+          "name": "identifier",
+          "in": "path",
+          "description": "Identifier reported in the URL.",
+          "required": true,
+          "type": "number",
+          "format": "integer"
+        }
+      ],
+      "get": {
+        "operationId": "GET_individual-supporting-document-agency-account-identifier",
+        "summary": "Show the supporting document individual.",
+        "tags": [
+          "Supporting Document"
+        ],
+        "description": "This service enables the customer to consult their individual supporting document transactions. This service present the details of the operation.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IndividualSupportingDocument"
+            }
+          },
+          "204": {
+            "description": "Not found supporting document individual from id"
+          },
+          "400": {
+            "description": "It occurs when the parameters or business rules are not correct.",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "It occurs when the user authentication fail.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "It occurs when a parametrization problem or  the application settings are incorrect.",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/withdraw/internal": {
+      "post": {
+        "operationId": "POST_internal_transfer",
+        "summary": "Creates a new internal transfer.",
+        "tags": [
+          "Cashout"
+        ],
+        "description": "This service creates a new internal transfer between accounts.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/InternalTransfer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifierTransaction"
+            }
+          },
+          "400": {
+            "description": "It occurs when the parameters or business rules are not correct.",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "It occurs when the user authentication fail.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "It occurs when a parametrization problem or  the application settings are incorrect.",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/withdraw/ted/same-ownership": {
+      "post": {
+        "operationId": "POST_transfer_ted-same-ownership",
+        "summary": "Creates a new available electronic transfer for same ownership.",
+        "tags": [
+          "Cashout"
+        ],
+        "description": "This service creates a new available electronic transfer for same ownership.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Transfer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifierTransaction"
+            }
+          },
+          "400": {
+            "description": "It occurs when the parameters or business rules are not correct.",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "It occurs when the user authentication fail.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "It occurs when a parametrization problem or  the application settings are incorrect.",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/withdraw/ted/third-party": {
+      "post": {
+        "operationId": "POST_transfer_ted-third-party",
+        "summary": "Creates a new available electronic transfer to third-party.",
+        "tags": [
+          "Cashout"
+        ],
+        "description": "This service creates a new available electronic transfer to third-party.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Transfer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifierTransaction"
+            }
+          },
+          "400": {
+            "description": "It occurs when the parameters or business rules are not correct.",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "It occurs when the user authentication fail.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "It occurs when a parametrization problem or  the application settings are incorrect.",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/withdraw/doc/same-ownership": {
+      "post": {
+        "operationId": "POST_transfer_doc-same-ownership",
+        "summary": "Creates a new credit order document for same ownership.",
+        "tags": [
+          "Cashout"
+        ],
+        "description": "This service creates a new credit order document for same ownership.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Transfer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifierTransaction"
+            }
+          },
+          "400": {
+            "description": "It occurs when the parameters or business rules are not correct.",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "It occurs when the user authentication fail.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "It occurs when a parametrization problem or  the application settings are incorrect.",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/withdraw/doc/third-party": {
+      "post": {
+        "operationId": "POST_transfer_doc-third-party",
+        "summary": "Creates a new credit order document to third-party.",
+        "tags": [
+          "Cashout"
+        ],
+        "description": "This service creates a new credit order document to third-party.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Transfer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifierTransaction"
+            }
+          },
+          "400": {
+            "description": "It occurs when the parameters or business rules are not correct.",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "It occurs when the user authentication fail.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "It occurs when a parametrization problem or  the application settings are incorrect.",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/income/corporations/{branch}/{account}": {
+      "get": {
+        "operationId": "GET_income-tax-corporations-withholdings-return",
+        "summary": "Show the income and tax withholdings return.",
+        "tags": [
+          "Income"
+        ],
+        "description": "Show the income and tax withholdings return.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "branch",
+            "in": "path",
+            "description": "Branch",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "account",
+            "in": "path",
+            "description": "Account",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Initial Date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End Date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IncomeCorporations"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/income/individuals/{branch}/{account}": {
+      "get": {
+        "operationId": "GET_income-tax-individuals-withholdings-return",
+        "summary": "Show the income and tax withholdings return.",
+        "tags": [
+          "Income"
+        ],
+        "description": "Show the income and tax withholdings return.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "branch",
+            "in": "path",
+            "description": "Branch",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "account",
+            "in": "path",
+            "description": "Account",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Initial Date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End Date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IncomeIndividuals"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/password/change/transaction": {
+      "post": {
+        "operationId": "POST_transaction_password",
+        "summary": "Change user transaction password",
+        "tags": [
+          "Password"
+        ],
+        "description": "This service change the user transaction password.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Password"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/password/change/access": {
+      "post": {
+        "operationId": "POST_access_password",
+        "summary": "Change user access password",
+        "tags": [
+          "Password"
+        ],
+        "description": "This service change the user access password.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Password"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/password/change/unique": {
+      "post": {
+        "operationId": "POST_unique_password",
+        "summary": "Change user transaction and access password",
+        "tags": [
+          "Password"
+        ],
+        "description": "This service change the user transaction and access password.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Password"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/transaction-threshold/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }
+      ],
+      "get": {
+        "operationId": "GET_search_transaction-threshold",
+        "summary": "Show the transaction threshold.",
+        "tags": [
+          "Search"
+        ],
+        "description": "Show the transaction threshold.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TransactionThreshold"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/banks": {
+      "get": {
+        "operationId": "GET_search_bank",
+        "summary": "This service returns list of banks",
+        "tags": [
+          "Search"
+        ],
+        "description": "This service returns list of banks",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/bankData"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/purposes/{transactionType}": {
+      "get": {
+        "operationId": "GET_search_purposes",
+        "summary": "This service returns purposes from type transaction",
+        "tags": [
+          "Search"
+        ],
+        "description": "This service returns purposes from type transaction",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "transactionType",
+            "in": "path",
+            "description": "Type transaction",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "TC",
+              "TD",
+              "DD",
+              "DC"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/purpose"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/token/client/info": {
+      "get": {
+        "operationId": "GET_token_client_synchronize",
+        "summary": "Synchronize the client token.",
+        "tags": [
+          "Token Client"
+        ],
+        "description": "Details of the client token.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/token/client/unblock": {
+      "post": {
+        "operationId": "POST_token_client_unblock",
+        "summary": "Unblock the client token",
+        "tags": [
+          "Token Client"
+        ],
+        "description": "This service unblock the client token.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TokenUnblock"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/token/client/block": {
+      "post": {
+        "operationId": "POST_token_client_block",
+        "summary": "Block the client token",
+        "tags": [
+          "Token Client"
+        ],
+        "description": "This service block the cliente token.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TokenBlock"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/token/client/synchronize": {
+      "post": {
+        "operationId": "POST_token_client_synchronize",
+        "summary": "Synchronize the client token",
+        "tags": [
+          "Token Client"
+        ],
+        "description": "This service synchronize de client tokens.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TokenSynchronize"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/token/client/validate": {
+      "post": {
+        "operationId": "POST_token_client_validate",
+        "summary": "Validate the client token",
+        "tags": [
+          "Token Client"
+        ],
+        "description": "This service validate the client token.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TokenValidate"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/user/authority": {
+      "get": {
+        "operationId": "GET_authorities",
+        "summary": "Returns all authorities",
+        "tags": [
+          "User"
+        ],
+        "description": "This service return all authorities.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "profile",
+            "in": "query",
+            "description": "Profile",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Authorities"
+            }
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/account/ownership/{branch}/{account}": {
+      "get": {
+        "operationId": "GET_user_registration-data",
+        "summary": "Returns user registration data",
+        "tags": [
+          "Account"
+        ],
+        "description": "This service return user registration data.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "branch",
+            "in": "path",
+            "description": "Branch",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "account",
+            "in": "path",
+            "description": "Account",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RegistrationData"
+            }
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "POST_user_registration-data",
+        "summary": "Updates user registration data",
+        "tags": [
+          "Account"
+        ],
+        "description": "This service updates user registration data.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/RegistrationDataUpdateDetails"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/user/account": {
+      "get": {
+        "operationId": "GET_account",
+        "summary": "Returns all user account",
+        "tags": [
+          "User"
+        ],
+        "description": "This service return all user account.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AccountComplete"
+            }
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/user/account/default/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }
+      ],
+      "post": {
+        "operationId": "POST_account-default",
+        "summary": "Defines the default user account",
+        "tags": [
+          "User"
+        ],
+        "description": "This service defines the default user account.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Status 400",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Status 401",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Status 500",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/operators": {
+      "post": {
+        "summary": "Creates an operator",
+        "description": "This service creates an operator associate by master user and branch/account",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Datas required to create a operator",
+            "schema": {
+              "$ref": "#/definitions/createOperatorData"
+            }
+          }
+        ],
+        "tags": [
+          "Operator"
+        ],
+        "responses": {
+          "201": {
+            "description": "Response if the request is successful"
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/operators/{operator}": {
+      "get": {
+        "summary": "Returns the data of operator",
+        "description": "This service return the data of operator\n",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "operator",
+            "in": "path",
+            "description": "operator username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Operator"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response if the request is successful",
+            "schema": {
+              "$ref": "#/definitions/operatorData"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Updates operator registration data",
+        "description": "This service update an operator",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "operator",
+            "in": "path",
+            "description": "operator username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Operator information to be updated",
+            "schema": {
+              "$ref": "#/definitions/updateOperatorData"
+            }
+          }
+        ],
+        "tags": [
+          "Operator"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response if the request is successful"
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/operators/activation/{operator}": {
+      "post": {
+        "summary": "Enable or disable an operator",
+        "description": "This service enable or disable an operator to use the system",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "operator",
+            "in": "path",
+            "description": "Operator username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Information for operator activation",
+            "schema": {
+              "$ref": "#/definitions/activationOperatorData"
+            }
+          }
+        ],
+        "tags": [
+          "Operator"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response if the request is successful"
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/operators/associated/": {
+      "get": {
+        "summary": "Returns all operators of master user authenticated",
+        "description": "This service returns all operators of master user authenticated",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Operator"
+        ],
+        "responses": {
+          "200": {
+            "description": "This service returns list of operators associated with the authenticated master user",
+            "schema": {
+              "$ref": "#/definitions/associateOperatorData"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/operators/apis/": {
+      "get": {
+        "summary": "Returns list of APIs available for Operator profile",
+        "description": "This service returns list of APIs available for Operator profile",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Operator"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response if the request is successful",
+            "schema": {
+              "$ref": "#/definitions/apiList"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/investment/products": {
+      "get": {
+        "summary": "Products",
+        "description": "This service returns all products avalible for investment",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Investment"
+        ],
+        "responses": {
+          "200": {
+            "description": "Investment Product Data",
+            "schema": {
+              "$ref": "#/definitions/productInvestmentData"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/withdraw/investment": {
+      "post": {
+        "summary": "Investment",
+        "description": "This service performs an investment application",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "Data required to create a investment application",
+            "schema": {
+              "$ref": "#/definitions/investmentDetails"
+            }
+          }
+        ],
+        "tags": [
+          "Cashout"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response if the request is successful",
+            "schema": {
+              "$ref": "#/definitions/IdentifierTransaction"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/timeline/{branch}/{account}": {
+      "get": {
+        "summary": "Returns timeline items",
+        "description": "Returns the extract information, boleto, schedules and other items configured to be displayed in the timeline.\n",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "branch",
+            "in": "path",
+            "description": "Branch number",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "account",
+            "in": "path",
+            "description": "Account number",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Start date",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End date",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "tags": [
+          "Timeline"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response if the request is successful",
+            "schema": {
+              "$ref": "#/definitions/timeline"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/dda/boleto/info": {
+      "post": {
+        "summary": "Boleto data",
+        "description": "This service returns the data of a boleto for payment",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/requestBoleto"
+            }
+          }
+        ],
+        "tags": [
+          "DDA"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response if the request is successful",
+            "schema": {
+              "$ref": "#/definitions/boletoData"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/ownership/enable-fields": {
+      "get": {
+        "operationId": "GET_search_fields",
+        "summary": "Returns the registration data fields that can be edited",
+        "tags": [
+          "Search"
+        ],
+        "description": "Returns the registration data fields that can be edited",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/fieldsResponse"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/ownership/info": {
+      "get": {
+        "operationId": "GET_search_ownership_info",
+        "summary": "Returns the first owner registration data",
+        "tags": [
+          "Search"
+        ],
+        "description": "Returns the first owner registration data",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "branch",
+            "in": "query",
+            "description": "Branch",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "account",
+            "in": "query",
+            "description": "Account",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ownershipInfoResponse"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/security-account/withdraw/payment": {
+      "post": {
+        "operationId": "POST_security-account-payment",
+        "summary": "Security Account Payment",
+        "tags": [
+          "Security account"
+        ],
+        "description": "Perform a transfer from the checking account to the security account",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SecurityAccountTransfer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifierTransaction"
+            }
+          },
+          "400": {
+            "description": "It occurs when the parameters or business rules are not correct.",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "It occurs when the user authentication fail.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "It occurs when a parametrization problem or  the application settings are incorrect.",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/security-account/withdraw/cashout": {
+      "post": {
+        "operationId": "POST_securityl_transfer_cashout",
+        "summary": "Account withdrawal security",
+        "tags": [
+          "Security account"
+        ],
+        "description": "Perform a transfer from the security account to the checking account",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SecurityAccountTransfer"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifierTransaction"
+            }
+          },
+          "400": {
+            "description": "It occurs when the parameters or business rules are not correct.",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "It occurs when the user authentication fail.",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "It occurs when a parametrization problem or  the application settings are incorrect.",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/security-account/balance/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }
+      ],
+      "get": {
+        "operationId": "GET_balance-security-account-agency-account",
+        "summary": "Show the status of security account balance.",
+        "tags": [
+          "Security account"
+        ],
+        "description": "The service retrieves the funds available on the bank security account at the moment of the request.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Position date",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BalanceGarantidaAccount"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/security-account/statement/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "number",
+          "format": "double"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "number",
+          "format": "double"
+        }
+      ],
+      "get": {
+        "operationId": "GET_statement-security-account-agency-account",
+        "summary": "This service lists all the transactions occurred in a bank security account in a specific time range.",
+        "tags": [
+          "Security account"
+        ],
+        "description": "This service lists all the transactions occurred in a bank security account in a specific time range.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Start date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Statement"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/security-account/check-account/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "number",
+          "format": "double"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "number",
+          "format": "double"
+        }
+      ],
+      "get": {
+        "operationId": "GET_check-security-account-agency-account",
+        "summary": "Security account related to checking account",
+        "tags": [
+          "Security account"
+        ],
+        "description": "Returns which security account linked to the current checking account",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CheckingAccountResponse"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/linked-account/balance/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "integer",
+          "format": "int32"
+        }
+      ],
+      "get": {
+        "operationId": "GET_balance-linked-account-agency-account",
+        "summary": "Show the status of linked account balance.",
+        "tags": [
+          "Linked account"
+        ],
+        "description": "The service retrieves the funds available on the bank linked account at the moment of the request.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Position date",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BalanceCurrentAccount"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    },
+    "/v1/linked-account/statement/{branch}/{account}": {
+      "parameters": [
+        {
+          "name": "branch",
+          "in": "path",
+          "description": "Branch",
+          "required": true,
+          "type": "number",
+          "format": "double"
+        },
+        {
+          "name": "account",
+          "in": "path",
+          "description": "Account",
+          "required": true,
+          "type": "number",
+          "format": "double"
+        }
+      ],
+      "get": {
+        "operationId": "GET_statement-linked-account-agency-account",
+        "summary": "This service lists all the transactions occurred in a bank linked account in a specific time range.",
+        "tags": [
+          "Linked account"
+        ],
+        "description": "This service lists all the transactions occurred in a bank linked account in a specific time range.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Start date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End date",
+            "required": true,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Type access token bearer returned by the authentication service",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Statement"
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "schema": {
+              "$ref": "#/definitions/ValidationError"
+            }
+          },
+          "401": {
+            "description": "Authentication failure",
+            "schema": {
+              "$ref": "#/definitions/AuthenticationFailure"
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/UnexpectedError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TransactionThreshold": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransactionThresholdDetails"
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "TransactionThresholdDetails": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        },
+        "active": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "description",
+        "value",
+        "active"
+      ]
+    },
+    "Payment": {
+      "type": "object",
+      "properties": {
+        "paymentDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Payment date"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Due date"
+        },
+        "value": {
+          "type": "number",
+          "format": "float",
+          "description": "Value"
+        },
+        "typeableLine": {
+          "type": "string",
+          "description": "Typeable Line. Either barcode or Typeable line must be informed"
+        },
+        "barcode": {
+          "type": "string",
+          "description": "Barcode. Either barcode or Typeable line must be informed"
+        },
+        "beneficiary": {
+          "$ref": "#/definitions/TransactionBeneficiary"
+        },
+        "drawee": {
+          "$ref": "#/definitions/Account"
+        },
+        "history": {
+          "type": "string",
+          "description": "History"
+        },
+        "password": {
+          "type": "string",
+          "description": "Transaction password: Either password or passwordEncrypted must be informed"
+        },
+        "passwordEncrypted": {
+          "type": "string",
+          "description": "Transaction password in format MD5 or SHA256: Either password or passwordEncrypted must be informed"
+        },
+        "idCallback": {
+          "type": "number",
+          "description": "Callback identifier when data is returned by the DDA"
+        }
+      },
+      "required": [
+        "paymentDate",
+        "dueDate",
+        "value",
+        "typeableLine",
+        "barcode",
+        "drawee"
+      ]
+    },
+    "InternalTransfer": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Transaction date"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Beneficiary identifier"
+        },
+        "debit": {
+          "$ref": "#/definitions/Account"
+        },
+        "credit": {
+          "$ref": "#/definitions/Account"
+        },
+        "value": {
+          "type": "number",
+          "description": "Value"
+        },
+        "history": {
+          "type": "string",
+          "description": "History"
+        },
+        "password": {
+          "type": "string",
+          "description": "Transaction password: Either password or passwordEncrypted must be informed"
+        },
+        "passwordEncrypted": {
+          "type": "string",
+          "description": "Transaction password in format MD5 or SHA256: Either password or passwordEncrypted must be informed"
+        }
+      },
+      "required": [
+        "date",
+        "taxIdentifier",
+        "debit",
+        "credit",
+        "value"
+      ]
+    },
+    "IdentifierTransaction": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/IdentifierTransactionDetail"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "example": {
+        "data": {
+          "identifier": 0,
+          "legacyIdentifier": 0
+        },
+        "error": null
+      }
+    },
+    "IdentifierTransactionPayment": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/IdentifierTransactionPaymentDetail"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "example": {
+        "data": {
+          "identifier": 0,
+          "legacyIdentifier": 0,
+          "status": "APPROVED"
+        },
+        "error": null
+      }
+    },
+    "IdentifierTransactionPaymentDetail": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "number"
+        },
+        "legacyIdentifier": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status for the request payment",
+          "enum": [
+            "APPROVED",
+            "REJECTED",
+            "OPEN"
+          ]
+        }
+      },
+      "required": [
+        "identifier"
+      ]
+    },
+    "IdentifierTransactionDetail": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "number"
+        },
+        "legacyIdentifier": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "identifier"
+      ]
+    },
+    "BeneficiarySearch": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BeneficiarySearchDetails"
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "BeneficiarySearchDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "account": {
+          "type": "number",
+          "format": "double"
+        },
+        "branch": {
+          "type": "number",
+          "format": "double"
+        },
+        "bankCode": {
+          "type": "integer"
+        },
+        "bankDescription": {
+          "type": "string"
+        },
+        "taxIdentifier": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "registerType": {
+          "type": "string",
+          "description": "TR: Transfer, DE: Doc C and Ted C, DD: Doc D and Ted D",
+          "enum": [
+            "TR",
+            "DE",
+            "DD"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "account",
+        "branch",
+        "bankCode",
+        "bankDescription",
+        "taxIdentifier",
+        "name",
+        "registerType"
+      ]
+    },
+    "BeneficiaryDetails": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "number",
+          "format": "double",
+          "description": "Account of beneficiary"
+        },
+        "branch": {
+          "type": "number",
+          "format": "double",
+          "description": "Branch of beneficiary"
+        },
+        "bankCode": {
+          "type": "integer",
+          "description": "Bank code"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier of beneficiary"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of beneficiary"
+        },
+        "personType": {
+          "type": "string",
+          "enum": [
+            "PF",
+            "PJ"
+          ]
+        },
+        "registerType": {
+          "type": "string",
+          "description": "TR: Transfer, DE: Doc C and Ted C, DD: Doc D and Ted D",
+          "enum": [
+            "TR",
+            "DE",
+            "DD"
+          ]
+        }
+      },
+      "required": [
+        "account",
+        "branch",
+        "bankCode",
+        "taxIdentifier",
+        "name",
+        "personType",
+        "registerType"
+      ]
+    },
+    "BeneficiarUpdateyDetails": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "number",
+          "format": "double",
+          "description": "Account of beneficiary"
+        },
+        "branch": {
+          "type": "number",
+          "format": "double",
+          "description": "Branch of beneficiary"
+        },
+        "bankCode": {
+          "type": "integer",
+          "description": "Bank code"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier of beneficiary"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of beneficiary"
+        },
+        "personType": {
+          "type": "string",
+          "enum": [
+            "PF",
+            "PJ"
+          ]
+        },
+        "registerType": {
+          "type": "string",
+          "enum": [
+            "TR",
+            "DE",
+            "DD"
+          ]
+        }
+      },
+      "required": [
+        "account",
+        "branch",
+        "bankCode",
+        "taxIdentifier",
+        "name",
+        "personType",
+        "registerType"
+      ]
+    },
+    "AccessDetails": {
+      "type": "object",
+      "required": [
+        "access_token",
+        "expires_in"
+      ],
+      "properties": {
+        "access_token": {
+          "type": "string",
+          "description": "The access token used to authenticate services APIs"
+        },
+        "expires_in": {
+          "type": "number",
+          "description": "Timeout access token"
+        }
+      }
+    },
+    "QRAuthResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The qrcode unique identifier"
+        },
+        "hash": {
+          "type": "string",
+          "description": "A hash string for mobile request validation"
+        },
+        "status": {
+          "type": "string",
+          "description": "The qrcode status (PENDING, EXPIRED, APPROVED)"
+        },
+        "token": {
+          "type": "string",
+          "description": "The oauth token for approved QRCodes"
+        },
+        "image": {
+          "type": "string",
+          "description": "The qrcode image in html format (base64), only when generating new QRs"
+        }
+      }
+    },
+    "QRApprovalRequest": {
+      "type": "object",
+      "properties": {
+        "qrCodeId": {
+          "type": "string",
+          "description": "The qrcode to be approved"
+        },
+        "hash": {
+          "type": "string",
+          "description": "The scanned hash string associated with the QRCode"
+        }
+      }
+    },
+    "BalanceInvestiment": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/BalanceInvestimentDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "BalanceInvestimentDetails": {
+      "type": "object",
+      "properties": {
+        "presentBalance": {
+          "$ref": "#/definitions/PresentBalanceDetails"
+        },
+        "futureBalance": {
+          "$ref": "#/definitions/FutureBalanceDetails"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductsDetails"
+          }
+        }
+      },
+      "required": [
+        "presentBalance",
+        "futureBalance",
+        "products"
+      ]
+    },
+    "PresentBalanceDetails": {
+      "type": "object",
+      "properties": {
+        "grossTotalBalance": {
+          "type": "number",
+          "format": "double"
+        },
+        "incomeTax": {
+          "type": "number",
+          "format": "double"
+        },
+        "netTotalBalance": {
+          "type": "number",
+          "format": "double"
+        },
+        "taxFinancialTransactions": {
+          "type": "number",
+          "format": "double"
+        },
+        "totalProfitability": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "required": [
+        "grossTotalBalance",
+        "netTotalBalance",
+        "taxFinancialTransactions",
+        "totalProfitability"
+      ]
+    },
+    "FutureBalanceDetails": {
+      "type": "object",
+      "properties": {
+        "grossTotalBalance": {
+          "type": "number",
+          "format": "double"
+        },
+        "incomeTax": {
+          "type": "number",
+          "format": "double"
+        },
+        "netTotalBalance": {
+          "type": "number",
+          "format": "double"
+        },
+        "taxFinancialTransactions": {
+          "type": "number",
+          "format": "double"
+        },
+        "totalProfitability": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "required": [
+        "grossTotalBalance",
+        "netTotalBalance",
+        "taxFinancialTransactions",
+        "totalProfitability"
+      ]
+    },
+    "ProductsDetails": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "index": {
+          "type": "string"
+        },
+        "indexPercentage": {
+          "type": "number",
+          "format": "double"
+        },
+        "product": {
+          "type": "string"
+        },
+        "rate": {
+          "type": "number",
+          "format": "double"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "presentStartValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "presentGrossValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "presentNetValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "presentTaxFinancialTransactionsValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "presentIncomeTaxValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "presentProfitabilityValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "futureStartValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "futureGrossValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "futureTaxFinancialTransactionsValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "futureNetValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "futureIncomeTaxValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "futureProfitabilityValue": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "required": [
+        "code",
+        "description",
+        "dueDate",
+        "index",
+        "indexPercentage",
+        "product",
+        "rate",
+        "startDate",
+        "presentStartValue",
+        "presentGrossValue",
+        "presentNetValue",
+        "presentTaxFinancialTransactionsValue",
+        "presentIncomeTaxValue",
+        "presentProfitabilityValue",
+        "futureStartValue",
+        "futureGrossValue",
+        "futureTaxFinancialTransactionsValue",
+        "futureNetValue",
+        "futureIncomeTaxValue",
+        "futureProfitabilityValue"
+      ]
+    },
+    "Entry": {
+      "type": "object",
+      "required": [
+        "date",
+        "description",
+        "type",
+        "value"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description."
+        },
+        "document": {
+          "type": "string",
+          "description": "Identifier number, if exists."
+        },
+        "type": {
+          "type": "string",
+          "description": "Type (C - Credit, D - Debit, S - Balance)"
+        },
+        "value": {
+          "type": "number",
+          "format": "float",
+          "description": "Value."
+        },
+        "additionalInfo": {
+          "type": "string",
+          "description": "Additional Information"
+        }
+      }
+    },
+    "AuthenticationFailure": {
+      "type": "object",
+      "required": [
+        "error",
+        "error_description"
+      ],
+      "properties": {
+        "error": {
+          "type": "string",
+          "description": "Error description."
+        },
+        "error_description": {
+          "type": "string",
+          "description": "Error message."
+        }
+      },
+      "description": "Error message when occur an authentication failure."
+    },
+    "BalanceCurrentAccount": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/BalanceCurrentAccountDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "BalanceCurrentAccountDetails": {
+      "type": "object",
+      "properties": {
+        "available": {
+          "type": "number",
+          "format": "double",
+          "description": "Available balance (Partial balance plus Limit Overdraft)"
+        },
+        "blocked": {
+          "type": "number",
+          "format": "double",
+          "description": "Blocked balance"
+        },
+        "partial": {
+          "type": "number",
+          "format": "double",
+          "description": "Partial balance (it not include secured account limit)"
+        },
+        "future": {
+          "type": "number",
+          "format": "double",
+          "description": "Future balance. These are future transactions (DOC/Cheque)"
+        },
+        "securedAccountLimit": {
+          "type": "number",
+          "format": "double",
+          "description": "Limit Overdraft (Credit limit with contract)"
+        },
+        "totalCharge": {
+          "type": "number",
+          "format": "double",
+          "description": "Total charge"
+        }
+      },
+      "required": [
+        "available",
+        "blocked",
+        "partial",
+        "future",
+        "securedAccountLimit",
+        "totalCharge"
+      ]
+    },
+    "Statement": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/StatementDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "StatementDetails": {
+      "type": "object",
+      "properties": {
+        "actualBalance": {
+          "$ref": "#/definitions/ResumeBalance"
+        },
+        "balance": {
+          "$ref": "#/definitions/BalanceDetails"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Entry"
+          }
+        },
+        "lastBalance": {
+          "$ref": "#/definitions/ResumeBalance"
+        }
+      }
+    },
+    "BalanceDetails": {
+      "type": "object",
+      "properties": {
+        "available": {
+          "type": "number",
+          "format": "double",
+          "description": "Available balance (Partial balance plus Limit Overdraft)"
+        },
+        "blocked": {
+          "type": "number",
+          "format": "double",
+          "description": "Blocked balance"
+        },
+        "partial": {
+          "type": "number",
+          "format": "double",
+          "description": "Partial balance (it not include secured account limit)"
+        },
+        "future": {
+          "type": "number",
+          "format": "double",
+          "description": "Future balance. These are future transactions (DOC/Cheque)"
+        },
+        "securedAccountLimit": {
+          "type": "number",
+          "format": "double",
+          "description": "Limit Overdraft (Credit limit with contract)"
+        },
+        "totalCharge": {
+          "type": "number",
+          "format": "double",
+          "description": "Total charge"
+        }
+      },
+      "required": [
+        "available",
+        "blocked",
+        "partial",
+        "future",
+        "securedAccountLimit",
+        "totalCharge"
+      ]
+    },
+    "ResumeBalance": {
+      "type": "object",
+      "required": [
+        "date",
+        "value"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date balance."
+        },
+        "value": {
+          "type": "number",
+          "format": "float",
+          "description": "Value balance."
+        }
+      },
+      "description": "Resume balance."
+    },
+    "ExtractInvestment": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ExtractInvestmentDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "ExtractInvestmentDetails": {
+      "type": "object",
+      "properties": {
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvestmentProducts"
+          }
+        },
+        "totalCustomer": {
+          "$ref": "#/definitions/TotalProduct"
+        }
+      },
+      "required": [
+        "totalCustomer"
+      ]
+    },
+    "InvestmentProducts": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "product": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvestmentProductsDetails"
+          }
+        },
+        "totalProduct": {
+          "$ref": "#/definitions/TotalProduct"
+        }
+      }
+    },
+    "InvestmentProductsDetails": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "index": {
+          "type": "string"
+        },
+        "indexPercentage": {
+          "type": "number",
+          "format": "double"
+        },
+        "incomeTaxValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "investment": {
+          "type": "number",
+          "format": "double"
+        },
+        "lastBalance": {
+          "type": "number",
+          "format": "double"
+        },
+        "surrender": {
+          "type": "number",
+          "format": "double"
+        },
+        "surrenderDifference": {
+          "type": "number",
+          "format": "double"
+        },
+        "taxFinancialTransactionsValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "grossYield": {
+          "type": "number",
+          "format": "double"
+        },
+        "rate": {
+          "type": "number"
+        },
+        "blocked": {
+          "type": "number",
+          "format": "double"
+        },
+        "available": {
+          "type": "number",
+          "format": "double"
+        },
+        "finalBalance": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "required": [
+        "code",
+        "description",
+        "dueDate",
+        "date",
+        "index",
+        "indexPercentage",
+        "incomeTaxValue",
+        "investment",
+        "lastBalance",
+        "surrender",
+        "surrenderDifference",
+        "taxFinancialTransactionsValue",
+        "grossYield"
+      ]
+    },
+    "SupportingDocument": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SupportingDocumentDetails"
+          },
+          "description": "Supporting document."
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "description": "Supporting document."
+    },
+    "SupportingDocumentDetails": {
+      "type": "object",
+      "required": [
+        "date",
+        "description",
+        "situation",
+        "identifier",
+        "legacy"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date that the supporting document was created"
+        },
+        "description": {
+          "type": "string",
+          "description": "Supporting document description.E.g. DOC, TED"
+        },
+        "history": {
+          "type": "string",
+          "description": "Client's description of the transaction"
+        },
+        "situation": {
+          "type": "string",
+          "description": "Type (ERR - Error, SUC - Success, AGD - Schedule, AGA - Waiting approval, ASA - Waiting second approval, REJ - Rejected, LEG - Waiting legacy system, PRC - Processing, CAG - Canceled, APF - Approval past due, ERD - Definitive error)"
+        },
+        "value": {
+          "type": "number",
+          "format": "float",
+          "description": "Transaction value"
+        },
+        "identifier": {
+          "type": "number",
+          "format": "float",
+          "description": "Identifier"
+        },
+        "legacy": {
+          "type": "boolean",
+          "description": "Legacy flag"
+        }
+      },
+      "description": "Supporting document."
+    },
+    "IndividualSupportingDocument": {
+      "type": "object",
+      "description": "Supporting document.",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/IndividualSupportingDocumentDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "DebitantDetails": {
+      "type": "object",
+      "required": [
+        "name",
+        "branch",
+        "account",
+        "taxIdentifier",
+        "bankCode",
+        "bankDescription"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "branch": {
+          "type": "number",
+          "format": "integer",
+          "description": "Branch"
+        },
+        "account": {
+          "type": "number",
+          "format": "integer",
+          "description": "Account"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier"
+        },
+        "bankCode": {
+          "type": "number",
+          "format": "integer",
+          "description": "Bank code"
+        },
+        "bankDescription": {
+          "type": "string",
+          "description": "Bank description"
+        }
+      }
+    },
+    "DocumentBeneficiaryDetails": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "branch": {
+          "type": "number",
+          "format": "integer",
+          "description": "Branch"
+        },
+        "account": {
+          "type": "number",
+          "format": "integer",
+          "description": "Account"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier"
+        },
+        "bankCode": {
+          "type": "number",
+          "format": "integer",
+          "description": "Bank code"
+        },
+        "bankDescription": {
+          "type": "string",
+          "description": "Bank description"
+        }
+      }
+    },
+    "IndividualSupportingDocumentDetails": {
+      "type": "object",
+      "required": [
+        "identifier",
+        "legacy",
+        "authentication",
+        "transactionDate",
+        "value",
+        "sweepingValue",
+        "operationTypeCode",
+        "operationTypeDescription",
+        "purpose",
+        "situation",
+        "history",
+        "debitant",
+        "beneficiary"
+      ],
+      "properties": {
+        "identifier": {
+          "type": "number",
+          "format": "integer",
+          "description": "Identifier"
+        },
+        "legacy": {
+          "type": "boolean",
+          "description": "Legacy flag"
+        },
+        "authentication": {
+          "type": "string",
+          "description": "Authentication"
+        },
+        "transactionDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date  hat the supporting document was created"
+        },
+        "schedulingDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date that the supporting document is scheduling transaction"
+        },
+        "value": {
+          "type": "number",
+          "format": "double",
+          "description": "Transaction value"
+        },
+        "sweepingValue": {
+          "type": "string",
+          "description": "Transaction sweeping value (Amount in words)"
+        },
+        "operationTypeCode": {
+          "type": "string",
+          "description": "Operation type code"
+        },
+        "operationTypeDescription": {
+          "type": "string",
+          "description": "Operation type description"
+        },
+        "purpose": {
+          "type": "string",
+          "description": "Purpose"
+        },
+        "history": {
+          "type": "string",
+          "description": "History"
+        },
+        "situation": {
+          "type": "string",
+          "description": "Type (ERR - Error, SUC - Success, AGD - Schedule, AGA - Waiting approval, ASA - Waiting second approval, REJ - Rejected, LEG - Waiting legacy system, PRC - Processing, CAG - Canceled, APF - Approval past due, ERD - Definitive error)"
+        },
+        "debitant": {
+          "$ref": "#/definitions/DebitantDetails"
+        },
+        "beneficiary": {
+          "$ref": "#/definitions/DocumentBeneficiaryDetails"
+        },
+        "barcode": {
+          "type": "string",
+          "description": "Barcode"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Due date"
+        }
+      }
+    },
+    "UnexpectedError": {
+      "type": "object",
+      "properties": {
+        "data": {},
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UnexpectedErrorDetails"
+          }
+        }
+      },
+      "description": "Error message when occur an error Unexpected."
+    },
+    "UnexpectedErrorDetails": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Error code."
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message."
+        },
+        "field": {
+          "type": "string",
+          "description": "Field error."
+        },
+        "action": {
+          "type": "string",
+          "description": "Value error."
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "TotalProduct": {
+      "type": "object",
+      "required": [
+        "finalBalance",
+        "incomeTaxValue",
+        "investment",
+        "lastBalance",
+        "taxFinancialTransactionsValue",
+        "grossYield"
+      ],
+      "properties": {
+        "finalBalance": {
+          "type": "number",
+          "format": "double"
+        },
+        "incomeTaxValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "investment": {
+          "type": "number",
+          "format": "double"
+        },
+        "lastBalance": {
+          "type": "number",
+          "format": "double"
+        },
+        "surrender": {
+          "type": "number",
+          "format": "double"
+        },
+        "surrenderDifference": {
+          "type": "number",
+          "format": "double"
+        },
+        "taxFinancialTransactionsValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "grossYield": {
+          "type": "number",
+          "format": "double"
+        },
+        "blocked": {
+          "type": "number",
+          "format": "double"
+        },
+        "available": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "ValidationError": {
+      "type": "object",
+      "properties": {
+        "data": {},
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      },
+      "description": "Error message when one or more parameters are incorrects."
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Error code."
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message."
+        },
+        "field": {
+          "type": "string",
+          "description": "Field error."
+        },
+        "action": {
+          "type": "string",
+          "description": "Value error."
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "Account": {
+      "type": "object",
+      "properties": {
+        "branch": {
+          "type": "number",
+          "description": "Branch number"
+        },
+        "account": {
+          "type": "number",
+          "description": "Account number"
+        },
+        "type": {
+          "type": "integer",
+          "description": "Account type"
+        }
+      },
+      "required": [
+        "branch",
+        "account"
+      ]
+    },
+    "AccountComplete": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/UserAccountDetails"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "AccountDetails": {
+      "type": "object",
+      "properties": {
+        "branch": {
+          "type": "number",
+          "description": "Branch number"
+        },
+        "account": {
+          "type": "number",
+          "description": "Account number"
+        },
+        "defaultAccount": {
+          "type": "boolean",
+          "description": "Indicates whether this account is the user's default account",
+          "enum": [
+            "true for default account",
+            "false for not default account"
+          ]
+        }
+      },
+      "required": [
+        "branch",
+        "account",
+        "defaultAccount"
+      ]
+    },
+    "UserAccountDetails": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "description": "Account user"
+        },
+        "personType": {
+          "type": "string",
+          "description": "Person Type"
+        },
+        "accountDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AccountDetails"
+          }
+        }
+      },
+      "required": [
+        "user",
+        "personType",
+        "accountDetails"
+      ]
+    },
+    "AccountInvestment": {
+      "type": "object",
+      "properties": {
+        "branch": {
+          "type": "number",
+          "description": "Branch number"
+        },
+        "account": {
+          "type": "number",
+          "description": "Account number"
+        }
+      },
+      "required": [
+        "branch",
+        "account"
+      ]
+    },
+    "TransactionBeneficiary": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier number"
+        },
+        "personType": {
+          "type": "string",
+          "description": "Person type",
+          "enum": [
+            "PF",
+            "PJ"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "taxIdentifier",
+        "personType"
+      ]
+    },
+    "Transfer": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Transaction date"
+        },
+        "debit": {
+          "$ref": "#/definitions/Account"
+        },
+        "credit": {
+          "$ref": "#/definitions/Account"
+        },
+        "beneficiary": {
+          "$ref": "#/definitions/TransactionBeneficiary"
+        },
+        "bank": {
+          "type": "integer",
+          "description": "Bank code"
+        },
+        "value": {
+          "type": "number",
+          "description": "Value"
+        },
+        "history": {
+          "type": "string",
+          "description": "History"
+        },
+        "purpose": {
+          "type": "integer",
+          "description": "Purpose"
+        },
+        "password": {
+          "type": "string",
+          "description": "Transaction password: Either password or passwordEncrypted must be informed"
+        },
+        "passwordEncrypted": {
+          "type": "string",
+          "description": "Transaction password in format MD5 or SHA256: Either password or passwordEncrypted must be informed"
+        }
+      },
+      "required": [
+        "date",
+        "debit",
+        "credit",
+        "bank",
+        "value",
+        "purpose",
+        "beneficiary"
+      ]
+    },
+    "IncomeCorporations": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/IncomeCorporationsDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "IncomeCorporationsDetails": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "number",
+          "format": "integer",
+          "description": "Year"
+        },
+        "bank": {
+          "$ref": "#/definitions/Bank"
+        },
+        "client": {
+          "$ref": "#/definitions/Client"
+        },
+        "account": {
+          "$ref": "#/definitions/Account"
+        },
+        "exclusiveTaxation": {
+          "$ref": "#/definitions/ExclusiveTaxationDetails"
+        },
+        "additionalInformation": {
+          "type": "string",
+          "description": "Additional Information"
+        }
+      }
+    },
+    "ExclusiveTaxationDetails": {
+      "type": "object",
+      "properties": {
+        "currentAccount": {
+          "$ref": "#/definitions/CurrentAccountDetails"
+        },
+        "income": {
+          "$ref": "#/definitions/IncomeDetails"
+        },
+        "total": {
+          "type": "number",
+          "format": "double",
+          "description": "Total"
+        },
+        "fixedIncomeApplications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FixedIncomeApplicationsDetails"
+          }
+        },
+        "swapOperations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SwapOperationsDetails"
+          }
+        }
+      }
+    },
+    "CurrentAccountDetails": {
+      "type": "object",
+      "properties": {
+        "last": {
+          "type": "number",
+          "format": "double",
+          "description": "Last balance"
+        },
+        "post": {
+          "type": "number",
+          "format": "double",
+          "description": "Actual balance"
+        }
+      }
+    },
+    "IncomeDetails": {
+      "type": "object",
+      "properties": {
+        "last": {
+          "type": "number",
+          "format": "double",
+          "description": "Last balance"
+        },
+        "post": {
+          "type": "number",
+          "format": "double",
+          "description": "Actual balance"
+        }
+      }
+    },
+    "FixedIncomeApplicationsDetails": {
+      "type": "object",
+      "properties": {
+        "month": {
+          "type": "string",
+          "description": "Month"
+        },
+        "grossYield": {
+          "type": "number",
+          "format": "double",
+          "description": "Value gross yield"
+        },
+        "incomeTax": {
+          "type": "number",
+          "format": "double",
+          "description": "Value income tax"
+        },
+        "netYield": {
+          "type": "number",
+          "format": "double",
+          "description": "Value net yield"
+        }
+      }
+    },
+    "SwapOperationsDetails": {
+      "type": "object",
+      "properties": {
+        "month": {
+          "type": "string",
+          "description": "Month"
+        },
+        "grossYield": {
+          "type": "number",
+          "format": "double",
+          "description": "Value gross yield"
+        },
+        "incomeTax": {
+          "type": "number",
+          "format": "double",
+          "description": "Value income tax"
+        },
+        "netYield": {
+          "type": "number",
+          "format": "double",
+          "description": "Value net yield"
+        }
+      }
+    },
+    "IncomeIndividuals": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/IncomeIndividualsDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "IncomeIndividualsDetails": {
+      "type": "object",
+      "properties": {
+        "year": {
+          "type": "number",
+          "format": "integer",
+          "description": "Year"
+        },
+        "bank": {
+          "$ref": "#/definitions/Bank"
+        },
+        "client": {
+          "$ref": "#/definitions/Client"
+        },
+        "taxable": {
+          "$ref": "#/definitions/TaxableDetails"
+        },
+        "exempt": {
+          "$ref": "#/definitions/ExemptDetails"
+        },
+        "taxationExclusive": {
+          "$ref": "#/definitions/TaxationExclusiveDetails"
+        },
+        "balanceCurrentAccount": {
+          "$ref": "#/definitions/BalanceCurrentAccountIncomeDetails"
+        },
+        "creditInTransit": {
+          "$ref": "#/definitions/CreditInTansitDetails"
+        },
+        "additionalInformation": {
+          "type": "string",
+          "description": "Additional Information"
+        }
+      }
+    },
+    "TaxableDetails": {
+      "type": "object",
+      "properties": {
+        "supplementaryPension": {
+          "$ref": "#/definitions/Taxable"
+        },
+        "individualScheduledRetirementFund": {
+          "$ref": "#/definitions/Taxable"
+        },
+        "freeBenefitGeneratorPlan": {
+          "$ref": "#/definitions/Taxable"
+        },
+        "freeBenefitGeneratorLife": {
+          "$ref": "#/definitions/Taxable"
+        },
+        "others": {
+          "$ref": "#/definitions/Taxable"
+        },
+        "total": {
+          "$ref": "#/definitions/Taxable"
+        }
+      }
+    },
+    "ExemptDetails": {
+      "type": "object",
+      "properties": {
+        "savingsAccountsAndMortgageNotes": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        },
+        "profitsAndDividends": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        },
+        "others": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        }
+      }
+    },
+    "TaxationExclusiveDetails": {
+      "type": "object",
+      "properties": {
+        "investmentFunds": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        },
+        "fixedIncomeInvestments": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        },
+        "capitalizationTitles": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        },
+        "interestOnShareholdersEquity": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        },
+        "swapOperations": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        },
+        "supplementaryPension": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        },
+        "others": {
+          "$ref": "#/definitions/TaxationExclusiveOrExempt"
+        },
+        "total": {
+          "type": "number",
+          "format": "double",
+          "description": "Total"
+        }
+      }
+    },
+    "BalanceCurrentAccountIncomeDetails": {
+      "type": "object",
+      "properties": {
+        "currentAccountDeposit": {
+          "$ref": "#/definitions/BalanceIncome"
+        },
+        "rewards": {
+          "$ref": "#/definitions/BalanceIncome"
+        }
+      }
+    },
+    "CreditInTansitDetails": {
+      "type": "object",
+      "properties": {
+        "investmentFundsAndClubs": {
+          "$ref": "#/definitions/CreditInTransit"
+        },
+        "others": {
+          "$ref": "#/definitions/CreditInTransit"
+        }
+      }
+    },
+    "Password": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "string",
+          "description": "Current password"
+        },
+        "new": {
+          "type": "string",
+          "description": "New password"
+        },
+        "confirmation": {
+          "type": "string",
+          "description": "Confirmation password"
+        }
+      },
+      "required": [
+        "current",
+        "new",
+        "confirmation"
+      ]
+    },
+    "AuthPassword": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "string",
+          "description": "User login"
+        },
+        "current": {
+          "type": "string",
+          "description": "Current password"
+        },
+        "new": {
+          "type": "string",
+          "description": "New password"
+        },
+        "confirmation": {
+          "type": "string",
+          "description": "Confirmation password"
+        }
+      },
+      "required": [
+        "user",
+        "current",
+        "new",
+        "confirmation"
+      ]
+    },
+    "Bank": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier"
+        },
+        "branchName": {
+          "type": "string",
+          "description": "Branch name"
+        }
+      },
+      "required": [
+        "description",
+        "taxIdentifier"
+      ]
+    },
+    "Client": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier"
+        }
+      },
+      "required": [
+        "name",
+        "taxIdentifier"
+      ]
+    },
+    "CreditInTransit": {
+      "type": "object",
+      "properties": {
+        "last": {
+          "type": "number",
+          "format": "double",
+          "description": "Last value"
+        },
+        "post": {
+          "type": "number",
+          "format": "double",
+          "description": "Yield value"
+        }
+      },
+      "required": [
+        "last",
+        "post"
+      ]
+    },
+    "TaxationExclusiveOrExempt": {
+      "type": "object",
+      "properties": {
+        "last": {
+          "type": "number",
+          "format": "double",
+          "description": "Last value"
+        },
+        "post": {
+          "type": "number",
+          "format": "double",
+          "description": "Post value"
+        },
+        "yield": {
+          "type": "number",
+          "format": "double",
+          "description": "Yield value"
+        }
+      },
+      "required": [
+        "last",
+        "post",
+        "yield"
+      ]
+    },
+    "Taxable": {
+      "type": "object",
+      "properties": {
+        "yield": {
+          "type": "number",
+          "format": "double",
+          "description": "Yield value"
+        },
+        "incomeTax": {
+          "type": "number",
+          "format": "double",
+          "description": "Income tax value"
+        }
+      },
+      "required": [
+        "yield",
+        "incomeTax"
+      ]
+    },
+    "BalanceIncome": {
+      "type": "object",
+      "properties": {
+        "last": {
+          "type": "number",
+          "format": "double",
+          "description": "Last value"
+        },
+        "post": {
+          "type": "number",
+          "format": "double",
+          "description": "Post value"
+        }
+      },
+      "required": [
+        "last",
+        "post"
+      ]
+    },
+    "TokenUnblock": {
+      "type": "object",
+      "properties": {
+        "otp": {
+          "type": "string",
+          "description": "Token password"
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "Serial number"
+        }
+      }
+    },
+    "TokenBlock": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "description": "Blocking reason"
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "Serial number"
+        }
+      }
+    },
+    "TokenSynchronize": {
+      "type": "object",
+      "properties": {
+        "otp1": {
+          "type": "string",
+          "description": "Token password one"
+        },
+        "otp2": {
+          "type": "string",
+          "description": "Token password two"
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "Serial number"
+        }
+      }
+    },
+    "Token": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/TokenDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "TokenDetails": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Token Status"
+        },
+        "attributionDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of attribution token"
+        },
+        "expirationDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of expiration token"
+        },
+        "serial": {
+          "type": "string",
+          "description": "Serial number"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "C",
+            "M"
+          ]
+        },
+        "lockDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Lock date"
+        },
+        "activationId": {
+          "type": "number",
+          "description": "Activation identifier"
+        },
+        "activationPassword": {
+          "type": "number",
+          "description": "Activation password"
+        }
+      }
+    },
+    "TokenValidate": {
+      "type": "object",
+      "properties": {
+        "otp": {
+          "type": "string",
+          "description": "Token OTP"
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "Serial number"
+        }
+      }
+    },
+    "Authorities": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuthoritiesDetails"
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "AuthoritiesDetails": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuthoritiesByProfileDetails"
+          },
+          "description": "Profile"
+        }
+      },
+      "required": [
+        "profile"
+      ]
+    },
+    "AuthoritiesByProfileDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "integer",
+          "description": "Identifier"
+        },
+        "uri": {
+          "type": "string",
+          "description": "URI"
+        },
+        "role": {
+          "type": "string",
+          "description": "Role"
+        }
+      },
+      "required": [
+        "id",
+        "uri",
+        "role"
+      ]
+    },
+    "RegistrationData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/RegistrationDataDetails"
+        },
+        "error": {
+          "type": "object"
+        }
+      }
+    },
+    "RegistrationDataDetails": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "number",
+          "format": "integer",
+          "description": "Code"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier"
+        },
+        "personType": {
+          "type": "string",
+          "description": "Person type",
+          "enum": [
+            "PF",
+            "PJ"
+          ]
+        },
+        "registerDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Register date"
+        },
+        "lastUpdateDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Last update date"
+        },
+        "additionalDetailsPerson": {
+          "$ref": "#/definitions/additionalDetailsPerson"
+        },
+        "additionalDetailsCorporate": {
+          "$ref": "#/definitions/AdditionalDetailsCorporate"
+        },
+        "address": {
+          "$ref": "#/definitions/addressDetails"
+        },
+        "contactInformation": {
+          "$ref": "#/definitions/contactDetails"
+        }
+      }
+    },
+    "RegistrationDataUpdateDetails": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/addressDetails"
+        },
+        "contactInformation": {
+          "$ref": "#/definitions/contactDetails"
+        }
+      }
+    },
+    "createOperatorData": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Operator username"
+        },
+        "name": {
+          "type": "string",
+          "description": "Operator name"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Operator Identification (CPF)"
+        },
+        "password": {
+          "type": "string",
+          "description": "Operator password: Either password or passwordEncrypted must be informed"
+        },
+        "passwordEncrypted": {
+          "type": "string",
+          "description": "Operator password: Either password or passwordEncrypted must be informed"
+        },
+        "active": {
+          "type": "boolean",
+          "enum": [
+            "true for enable",
+            "false for disable"
+          ],
+          "description": "Indicates whether the operator is active or not to access the system"
+        },
+        "associatedAccounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/associatedAccounts"
+          },
+          "description": "List of accounts associated"
+        }
+      },
+      "required": [
+        "username",
+        "name",
+        "associatedAccounts"
+      ]
+    },
+    "operatorDataDetails": {
+      "type": "object",
+      "properties": {
+        "master": {
+          "type": "string",
+          "description": "Username of master user"
+        },
+        "username": {
+          "type": "string",
+          "description": "Operator username"
+        },
+        "name": {
+          "type": "string",
+          "description": "Operator name"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Operator Identification (CPF)"
+        },
+        "active": {
+          "type": "boolean",
+          "enum": [
+            "true for enable",
+            "false for disable"
+          ],
+          "description": "Indicates whether the operator is active or not to access the system"
+        },
+        "associatedAccounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/associatedAccounts"
+          },
+          "description": "List of accounts associated"
+        }
+      }
+    },
+    "operatorData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/operatorDataDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "associateOperatorData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/operatorDataDetails"
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "updateOperatorData": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Operator name"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Operator Identification (CPF)"
+        },
+        "password": {
+          "type": "string",
+          "description": "Operator password: Either password or passwordEncrypted must be informed to change"
+        },
+        "passwordEncrypted": {
+          "type": "string",
+          "description": "Operator password: Either password or passwordEncrypted must be informed to change"
+        },
+        "active": {
+          "type": "boolean",
+          "enum": [
+            "true for enable",
+            "false for disable"
+          ],
+          "description": "Indicates whether the operator is active or not to access the system"
+        },
+        "associatedAccounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/associatedAccounts"
+          },
+          "description": "List of accounts associated"
+        }
+      }
+    },
+    "activationOperatorData": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "enum": [
+            "true for enable",
+            "false for disable"
+          ],
+          "description": "Indicates whether the operator is active or not to access the system"
+        }
+      },
+      "required": [
+        "active"
+      ]
+    },
+    "apiListDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Menu id"
+        },
+        "levelOne": {
+          "type": "string",
+          "description": "Name of the first menu"
+        },
+        "levelTwo": {
+          "type": "string",
+          "description": "Name of the second menu"
+        },
+        "levelThree": {
+          "type": "string",
+          "description": "Name of the third menu"
+        }
+      }
+    },
+    "apiList": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/apiListDetails"
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "associatedAccounts": {
+      "type": "object",
+      "properties": {
+        "branch": {
+          "type": "number",
+          "description": "Branch number"
+        },
+        "account": {
+          "type": "number",
+          "description": "Account number"
+        },
+        "apisAvailable": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "List of menus/APIs that can be accessed by the operator through branch/account"
+        }
+      },
+      "required": [
+        "branch",
+        "account"
+      ]
+    },
+    "productInvestmentDetails": {
+      "type": "object",
+      "properties": {
+        "codOperationType": {
+          "type": "string",
+          "description": "Operation code type"
+        },
+        "operationDescription": {
+          "type": "string",
+          "description": "Operation description"
+        },
+        "codIndexPercentageDefault": {
+          "type": "string",
+          "description": "Index code percentage default"
+        },
+        "indexPercentageDefault": {
+          "type": "number",
+          "description": "Default index percentage"
+        },
+        "taxDefault": {
+          "type": "number",
+          "description": "Default tax"
+        },
+        "productCode": {
+          "type": "string",
+          "description": "Product code"
+        }
+      },
+      "required": [
+        "codOperationType",
+        "operationDescription",
+        "codIndexPercentageDefault",
+        "indexPercentageDefault",
+        "taxDefault",
+        "productCode"
+      ],
+      "example": {
+        "codOperationType": "CDB+",
+        "operationDescription": "EMS DE CDB NAO CONTROLADO",
+        "codIndexPercentageDefault": "PRE",
+        "indexPercentageDefault": "100,00",
+        "taxDefault": "14,00000000",
+        "productCode": "CDB"
+      }
+    },
+    "productInvestmentData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/productInvestmentDetails"
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "investmentDetails": {
+      "type": "object",
+      "properties": {
+        "codOperationType": {
+          "type": "string",
+          "description": "Operation code type"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Due date of investment"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Amount of investment"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Transaction date"
+        },
+        "debit": {
+          "$ref": "#/definitions/AccountInvestment"
+        },
+        "password": {
+          "type": "string",
+          "description": "Transaction password"
+        },
+        "gracePeriod": {
+          "type": "string",
+          "format": "date",
+          "description": "Grace period of investment"
+        },
+        "indexPercentage": {
+          "type": "number",
+          "format": "double",
+          "description": "Index Percentage of investment. If the selected investment product is PRÉ, the index value will always be 100%."
+        },
+        "tax": {
+          "type": "number",
+          "format": "double",
+          "description": "Tax of investment"
+        }
+      },
+      "required": [
+        "codOperationType",
+        "dueDate",
+        "amount",
+        "date",
+        "debit",
+        "password"
+      ],
+      "example": {
+        "codOperationType": "CDB+",
+        "dueDate": "2016-03-07",
+        "amount": "1000,00",
+        "date": "2016-02-07",
+        "debit": {
+          "branch": "01",
+          "account": "10258",
+          "type": "1"
+        },
+        "password": "hazhake#aka",
+        "gracePeriod": "2017-02-07",
+        "indexPercentage": "12,00000000",
+        "tax": "102,00"
+      }
+    },
+    "schedulingData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/schedulingDetails"
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "schedulingDetails": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "number",
+          "description": "Identifier"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Transaction date"
+        },
+        "schedulingDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Scheduling date"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Scheduling value"
+        },
+        "description": {
+          "type": "string",
+          "description": "Client's description for Scheduling"
+        },
+        "history": {
+          "type": "string",
+          "description": "History"
+        }
+      }
+    },
+    "bankData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/bankDetails"
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "beneficiaryInfoData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Beneficiary name"
+            },
+            "taxIdentifier": {
+              "type": "string",
+              "description": "Beneficiary tax identifier"
+            },
+            "personType": {
+              "type": "string",
+              "enum": [
+                "PF",
+                "PJ"
+              ]
+            }
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "bankDetails": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "number",
+          "description": "Bank code"
+        },
+        "name": {
+          "type": "string",
+          "description": "Bank name"
+        }
+      },
+      "required": [
+        "code",
+        "name"
+      ]
+    },
+    "purpose": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Purpose code"
+              },
+              "description": {
+                "type": "string",
+                "description": "Purpose description"
+              },
+              "requiredHistoric": {
+                "type": "boolean",
+                "description": "Required historic"
+              }
+            },
+            "required": [
+              "code",
+              "description",
+              "requiredHistoric"
+            ]
+          }
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/timelineItems"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "timelineItems": {
+      "type": "object",
+      "properties": {
+        "future": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/timelineData"
+          }
+        },
+        "others": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/timelineData"
+          }
+        }
+      }
+    },
+    "timelineData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date and Time of operation"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the timeline item"
+        },
+        "value": {
+          "type": "string",
+          "description": "Transaction value"
+        },
+        "link": {
+          "type": "string",
+          "description": "Link"
+        },
+        "transaction": {
+          "type": "string",
+          "description": "Transaction type",
+          "enum": [
+            "transfer",
+            "payment_boleto",
+            "scheduled_transfer",
+            "dda_boleto",
+            "scheduled_boleto",
+            "scheduled_dda_boleto",
+            "debit",
+            "credit",
+            "info"
+          ]
+        },
+        "operation": {
+          "type": "string",
+          "description": "Operation type",
+          "enum": [
+            "C - Credit",
+            "D - Debit"
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/itemDetails"
+          }
+        }
+      },
+      "required": [
+        "description",
+        "id"
+      ],
+      "example": {
+        "id": "10",
+        "date": "2016-05-25T15:52:00",
+        "description": "Pagamento boleto",
+        "value": "100",
+        "transactiontype": "payment_boleto",
+        "operation": "D",
+        "details": [
+          {
+            "key": "Se pago até dia 10/05/2016 conceder desconto de ",
+            "value": "15.00"
+          }
+        ],
+        "tags": [
+          "Feeding",
+          "Marketplace"
+        ]
+      }
+    },
+    "itemDetails": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "key"
+        },
+        "value": {
+          "type": "string",
+          "description": "Description"
+        }
+      }
+    },
+    "draweeDetails": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Drawee name"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier number of drawee"
+        },
+        "tradeName": {
+          "type": "string",
+          "description": "Trade name"
+        }
+      }
+    },
+    "beneficiaryDetails": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Beneficiary name"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier number of beneficiary"
+        },
+        "tradeName": {
+          "type": "string",
+          "description": "Trade name"
+        }
+      }
+    },
+    "finalBeneficiaryDetails": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Final Beneficiary name"
+        },
+        "taxIdentifier": {
+          "type": "string",
+          "description": "Identifier number of final beneficiary"
+        },
+        "tradeName": {
+          "type": "string",
+          "description": "Trade name"
+        }
+      }
+    },
+    "paymentBoletoDetails": {
+      "type": "object",
+      "properties": {
+        "barcode": {
+          "type": "number",
+          "description": "Barcode"
+        },
+        "typeableLine": {
+          "type": "number",
+          "description": "typable Line"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date",
+          "description": "Due date"
+        },
+        "faceValue": {
+          "type": "number",
+          "description": "Face value of boleto"
+        },
+        "interest": {
+          "type": "number",
+          "description": "Interest"
+        },
+        "fine": {
+          "type": "number",
+          "description": "Fine"
+        },
+        "discount": {
+          "type": "number",
+          "description": "Discount"
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Total amount considering interest, fine and discount"
+        }
+      }
+    },
+    "financialInstitutionDetails": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "number",
+          "description": "Financial institution code"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of financial institution"
+        }
+      }
+    },
+    "boletoData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/boletoDetails"
+        },
+        "error": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "boletoDetails": {
+      "type": "object",
+      "properties": {
+        "complete": {
+          "type": "string",
+          "enum": [
+            "S",
+            "N"
+          ],
+          "description": "Indicates whether the boleto data will be returned complete or not"
+        },
+        "finalPayer": {
+          "type": "string",
+          "description": "Identifier number of final payer"
+        },
+        "drawee": {
+          "$ref": "#/definitions/draweeDetails"
+        },
+        "beneficiary": {
+          "$ref": "#/definitions/beneficiaryDetails"
+        },
+        "finalBeneficiary": {
+          "$ref": "#/definitions/finalBeneficiaryDetails"
+        },
+        "financialInstitution": {
+          "$ref": "#/definitions/financialInstitutionDetails"
+        },
+        "paymentBoleto": {
+          "$ref": "#/definitions/paymentBoletoDetails"
+        },
+        "idCallback": {
+          "type": "number",
+          "description": "Callback identifier when data is returned by the DDA"
+        }
+      }
+    },
+    "requestBoleto": {
+      "type": "object",
+      "properties": {
+        "barcode": {
+          "type": "string",
+          "description": "Barcode. Either barcode or Typeable line must be informed"
+        },
+        "typeableLine": {
+          "type": "string",
+          "description": "Typeable line. Either barcode or Typeable line must be informed"
+        },
+        "paymentDate": {
+          "type": "string",
+          "description": "Payment date"
+        },
+        "branch": {
+          "type": "number",
+          "description": "Branch number"
+        },
+        "account": {
+          "type": "number",
+          "description": "Account number"
+        }
+      },
+      "required": [
+        "paymentDate",
+        "branch",
+        "account"
+      ],
+      "example": {
+        "barcode": "string",
+        "typeableLine": "001900000900502010184000163241881718600000",
+        "paymentDate": "2017-06-10",
+        "branch": 1,
+        "account": 19
+      }
+    },
+    "addressDetails": {
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string",
+          "description": "Street"
+        },
+        "number": {
+          "type": "string",
+          "description": "Number"
+        },
+        "neighborhood": {
+          "type": "string",
+          "description": "Neighborhood"
+        },
+        "complement": {
+          "type": "string",
+          "description": "Complement"
+        },
+        "cep": {
+          "type": "number",
+          "description": "CEP"
+        },
+        "city": {
+          "type": "string",
+          "description": "City"
+        },
+        "uf": {
+          "type": "string",
+          "description": "UF"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country"
+        }
+      }
+    },
+    "phoneDetails": {
+      "type": "object",
+      "properties": {
+        "ddi": {
+          "type": "number",
+          "description": "DDI"
+        },
+        "ddd": {
+          "type": "number",
+          "description": "DDD"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Phone number"
+        }
+      }
+    },
+    "contactDetails": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "$ref": "#/definitions/phoneDetails"
+        },
+        "faxNumber": {
+          "type": "string",
+          "description": "Fax number"
+        },
+        "email": {
+          "type": "string",
+          "description": "E-mail"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL"
+        }
+      }
+    },
+    "rg": {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string",
+          "description": "Number"
+        },
+        "issueDate": {
+          "type": "string",
+          "description": "Issue date"
+        },
+        "issuer": {
+          "type": "string",
+          "description": "Issuer"
+        },
+        "state": {
+          "type": "string",
+          "description": "State"
+        }
+      }
+    },
+    "additionalDetailsPerson": {
+      "type": "object",
+      "properties": {
+        "maritalStatus": {
+          "type": "string",
+          "description": "marital status",
+          "enum": [
+            "SEPARATED",
+            "SEPARATION_CLAIMED",
+            "MARRIED",
+            "SINGLE",
+            "WIDOW",
+            "COMMON_LAW_MARRIAGE",
+            "DIVORCED"
+          ]
+        },
+        "gender": {
+          "type": "string",
+          "description": "gender",
+          "enum": [
+            "M",
+            "F"
+          ]
+        },
+        "birthDate": {
+          "type": "string",
+          "description": "birth date"
+        },
+        "rg": {
+          "$ref": "#/definitions/rg"
+        }
+      }
+    },
+    "fieldsResponseDetails": {
+      "type": "object",
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "fieldsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/fieldsResponseDetails"
+        },
+        "error": {
+          "type": "object"
+        }
+      }
+    },
+    "ownershipInfoResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ownershipInfoResponseDetails"
+        },
+        "error": {
+          "type": "object"
+        }
+      }
+    },
+    "ownershipInfoResponseDetails": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "taxIdentifier": {
+          "type": "string"
+        },
+        "personType": {
+          "type": "string",
+          "enum": [
+            "PF",
+            "PJ"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "taxIdentifier",
+        "personType"
+      ]
+    },
+    "BalanceGarantidaAccount": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/BalanceGarantidaAccountDetails"
+        },
+        "error": {
+          "type": "object"
+        }
+      }
+    },
+    "BalanceGarantidaAccountDetails": {
+      "type": "object",
+      "properties": {
+        "securityBranch": {
+          "type": "number",
+          "description": "Branch number"
+        },
+        "securityAccount": {
+          "type": "number",
+          "description": "Account number"
+        },
+        "creditInformation": {
+          "$ref": "#/definitions/BalanceGarantidaInfo"
+        },
+        "balanceInformation": {
+          "$ref": "#/definitions/BalanceGarantida"
+        }
+      }
+    },
+    "BalanceGarantida": {
+      "type": "object",
+      "properties": {
+        "balance": {
+          "type": "number",
+          "format": "double"
+        },
+        "totalCharge": {
+          "type": "number",
+          "format": "double",
+          "description": "Total charge"
+        },
+        "taxFinancialValue": {
+          "type": "number",
+          "format": "double"
+        },
+        "fine": {
+          "type": "number",
+          "description": "Fine",
+          "format": "double"
+        },
+        "interest": {
+          "type": "number",
+          "description": "Interest",
+          "format": "double"
+        },
+        "grossTotalBalance": {
+          "type": "number",
+          "format": "double"
+        },
+        "balanceAvailable": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "BalanceGarantidaInfo": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "string"
+        },
+        "indexPercentage": {
+          "type": "number",
+          "format": "double"
+        },
+        "rate": {
+          "type": "number",
+          "format": "double"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "limit": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "CheckingAccountDetails": {
+      "type": "object",
+      "properties": {
+        "branch": {
+          "type": "number",
+          "description": "Branch number"
+        },
+        "account": {
+          "type": "number",
+          "description": "Account number"
+        }
+      }
+    },
+    "AdditionalDetailsCorporate": {
+      "type": "object",
+      "properties": {
+        "companyName": {
+          "type": "string",
+          "description": "Company name"
+        },
+        "stateRegistration": {
+          "type": "string",
+          "description": "State registration"
+        }
+      }
+    },
+    "CheckingAccountResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/CheckingAccountDetails"
+        },
+        "error": {
+          "type": "object"
+        }
+      }
+    },
+    "SecurityAccountTransfer": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Transaction date"
+        },
+        "debit": {
+          "$ref": "#/definitions/Account"
+        },
+        "credit": {
+          "$ref": "#/definitions/Account"
+        },
+        "value": {
+          "type": "number",
+          "description": "Value"
+        },
+        "history": {
+          "type": "string",
+          "description": "History"
+        },
+        "password": {
+          "type": "string",
+          "description": "Transaction password"
+        }
+      },
+      "required": [
+        "date",
+        "debit",
+        "credit",
+        "value",
+        "password"
+      ]
+    }
+  }
+}

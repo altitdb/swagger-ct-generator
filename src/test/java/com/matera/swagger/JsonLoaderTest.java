@@ -16,33 +16,13 @@ public class JsonLoaderTest {
 	}
 	
 	@Test
-	public void shouldReturnUriDomains() {
-		Assert.assertEquals(jsonLoader.getUriDomain().size(), 59);
-	}
-
-	@Test
-	public void shouldReturnHeaderDomains() {
-		Assert.assertEquals(jsonLoader.getHeaderDomain().size(), 1);
-	}
-	
-	@Test
-	public void shouldReturnPathDomains() {
-		Assert.assertEquals(jsonLoader.getPathDomain().size(), 4);
-	}
-	
-	@Test
-	public void shouldReturnQueryDomains() {
-		Assert.assertEquals(jsonLoader.getQueryDomain().size(), 9);
-	}
-	
-	@Test
-	public void shouldReturnBodyDomains() {
-		Assert.assertEquals(jsonLoader.getBodyDomain().size(), 51);
-	}
-
-	@Test
 	public void shouldReturnTheUrl() {
 		Assert.assertEquals(jsonLoader.getUrl(), URL);
+	}
+	
+	@Test
+	public void shouldContainsJson() {
+		Assert.assertNotNull(jsonLoader.getJson());
 	}
 	
 }
