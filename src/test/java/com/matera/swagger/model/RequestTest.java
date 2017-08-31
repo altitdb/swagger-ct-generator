@@ -39,4 +39,42 @@ public class RequestTest {
 		request = new RequestBuilder().withHeaders(headerOne, headerTwo).build();
 		Assert.assertEquals(ImmutableSet.of(headerOne, headerTwo), request.getHeaders());
 	}
+	
+	@Test
+	public void shouldGetOnlyOnePathParam() {
+		PathParam pathParam = new PathParam("name", "value");
+		request = new RequestBuilder().withPathParam(pathParam).build();
+		Assert.assertEquals(ImmutableSet.of(pathParam), request.getPathParams());
+	}
+	
+	@Test
+	public void shouldGetManyPathParam() {
+		PathParam pathParamOne = new PathParam("name", "value");
+		PathParam pathParamTwo = new PathParam("name", "value");
+		request = new RequestBuilder().withPathParam(pathParamOne, pathParamTwo).build();
+		Assert.assertEquals(ImmutableSet.of(pathParamOne, pathParamTwo), request.getPathParams());
+	}
+	
+	@Test
+	public void shouldGetOnlyOneQueryParam() {
+		QueryParam queryParam = new QueryParam("name", "value");
+		request = new RequestBuilder().withQueryParam(queryParam).build();
+		Assert.assertEquals(ImmutableSet.of(queryParam), request.getQueryParams());
+	}
+	
+	@Test
+	public void shouldGetManyQueryParam() {
+		QueryParam queryParamOne = new QueryParam("name", "value");
+		QueryParam queryParamTwo = new QueryParam("name", "value");
+		request = new RequestBuilder().withQueryParam(queryParamOne, queryParamTwo).build();
+		Assert.assertEquals(ImmutableSet.of(queryParamOne, queryParamTwo), request.getQueryParams());
+	}
+	
+	@Test
+	public void shouldGetBody() {
+		String json = "{\"key\":\"value\"}";
+		request = new RequestBuilder().withBody(json).build();
+		Assert.assertEquals(json, request.getBody());
+	}
+	
 }

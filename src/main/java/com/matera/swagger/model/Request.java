@@ -9,6 +9,9 @@ public class Request {
 	private String url;
 	private String uri;
 	private Set<Header> headers;
+	private Set<PathParam> pathParams;
+	private Set<QueryParam> queryParams;
+	private String body;
 
 	public String getUri() {
 		return this.uri;
@@ -19,7 +22,19 @@ public class Request {
 	}
 
 	public Set<Header> getHeaders() {
-		return headers;
+		return this.headers;
+	}
+	
+	public Set<PathParam> getPathParams() {
+		return this.pathParams;
+	}
+	
+	public Set<QueryParam> getQueryParams() {
+		return this.queryParams;
+	}
+	
+	public String getBody() {
+		return this.body;
 	}
 
 	public static class RequestBuilder {
@@ -42,6 +57,21 @@ public class Request {
 
 		public RequestBuilder withHeaders(Header... header) {
 			request.headers = ImmutableSet.copyOf(header);
+			return this;
+		}
+
+		public RequestBuilder withPathParam(PathParam... pathParam) {
+			request.pathParams = ImmutableSet.copyOf(pathParam);
+			return this;
+		}
+
+		public RequestBuilder withQueryParam(QueryParam... queryParam) {
+			request.queryParams = ImmutableSet.copyOf(queryParam);
+			return this;
+		}
+
+		public RequestBuilder withBody(String body) {
+			request.body = body;
 			return this;
 		}
 	}
