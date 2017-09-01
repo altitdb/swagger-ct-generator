@@ -18,4 +18,8 @@ public class QueryParam {
 		return value;
 	}
 
+	public String getQuery() {
+		return String.format("%s=%s", name, value);
+	}
+
 }

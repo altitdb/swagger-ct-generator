@@ -115,4 +115,19 @@ public class RequestTest {
 		request = new RequestBuilder().withBaseUrl("http://localhost:8080").withUri("/api/v1/my-first-uri").withPathParam(pathParam).build();
 	}
 	
+	@Test
+	public void shouldFormatUrlWithQueryParam() {
+		QueryParam queryParam = new QueryParam("name", "value");
+		request = new RequestBuilder().withBaseUrl("http://localhost:8080").withUri("/api/v1/my-first-uri").withQueryParam(queryParam).build();
+		Assert.assertEquals("http://localhost:8080/api/v1/my-first-uri?name=value", request.getUrl());
+	}
+	
+	@Test
+	public void shouldFormatUrlWithManyQueryParam() {
+		QueryParam queryParamOne = new QueryParam("name-one", "value-one");
+		QueryParam queryParamTwo = new QueryParam("name-two", "value-two");
+		request = new RequestBuilder().withBaseUrl("http://localhost:8080").withUri("/api/v1/my-first-uri").withQueryParam(queryParamOne, queryParamTwo).build();
+		Assert.assertEquals("http://localhost:8080/api/v1/my-first-uri?name-one=value-one&name-two=value-two", request.getUrl());
+	}
+	
 }

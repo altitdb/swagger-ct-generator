@@ -5,6 +5,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 
 public class Request {
 
@@ -44,7 +45,6 @@ public class Request {
 		return this.body;
 	}
 	
-
 	public static class RequestBuilder {
 
 		private Request request = new Request();
@@ -54,7 +54,8 @@ public class Request {
 			request.validateBaseUrl();
 			request.validateUri();
 			request.validatePathParam();
-			request.parseParam();
+			request.parsePathParam();
+			request.parseQueryParam();
 			return request;
 		}
 
@@ -93,6 +94,19 @@ public class Request {
 		this.url = StringUtils.join(this.baseUrl, this.uri);
 	}
 
+	public void parseQueryParam() {
+		if (!this.queryParams.isEmpty()) {
+			this.url = StringUtils.join(this.url, "?");
+			QueryParam last = Iterables.getLast(queryParams);
+			for (QueryParam queryParam : queryParams) {
+				this.url = StringUtils.join(this.url, queryParam.getQuery());
+				if (!queryParam.equals(last)) {
+					this.url = StringUtils.join(this.url, "&");
+				}
+			}
+		}
+	}
+
 	private void validatePathParam() {
 		for (PathParam pathParam : pathParams) {
 			String search = String.format("{%s}", pathParam.getName());
@@ -104,7 +118,7 @@ public class Request {
 		}
 	}
 
-	private void parseParam() {
+	private void parsePathParam() {
 		for (PathParam pathParam : pathParams) {
 			String replace = String.format("\\{%s\\}", pathParam.getName());
 			this.url = StringUtils.replaceAll(this.url, replace, pathParam.getValue());
