@@ -130,4 +130,10 @@ public class RequestTest {
 		Assert.assertEquals("http://localhost:8080/api/v1/my-first-uri?name-one=value-one&name-two=value-two", request.getUrl());
 	}
 	
+	@Test
+	public void shouldGetName() {
+		request = new RequestBuilder().withBaseUrl("http://localhost:8080").withUri("/api/v1/my-first-uri").withName("Some request").build();
+		Assert.assertEquals("Some request", request.getName());
+	}
+	
 }

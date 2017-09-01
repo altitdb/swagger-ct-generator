@@ -9,6 +9,7 @@ import com.google.common.collect.Iterables;
 
 public class Request {
 
+	private String name;
 	private String uri;
 	private String baseUrl;
 	private String url;
@@ -17,6 +18,10 @@ public class Request {
 	private Set<QueryParam> queryParams = ImmutableSet.of();
 	private String body;
 
+	public String getName() {
+		return this.name;
+	}
+	
 	public String getUri() {
 		return this.uri;
 	}
@@ -86,6 +91,11 @@ public class Request {
 
 		public RequestBuilder withBaseUrl(String baseUrl) {
 			request.baseUrl = baseUrl;
+			return this;
+		}
+
+		public RequestBuilder withName(String name) {
+			request.name = name;
 			return this;
 		}
 	}
