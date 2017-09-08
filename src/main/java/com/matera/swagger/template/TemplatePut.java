@@ -1,5 +1,5 @@
 package com.matera.swagger.template;
 
-public class TemplatePut extends Template {
+public class TemplatePut extends AbstractTemplate {
 
 }

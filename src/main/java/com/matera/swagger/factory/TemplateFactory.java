@@ -1,7 +1,7 @@
 package com.matera.swagger.factory;
 
 import com.matera.swagger.enums.Templates;
-import com.matera.swagger.template.Template;
+import com.matera.swagger.template.AbstractTemplate;
 import com.matera.swagger.template.TemplateDelete;
 import com.matera.swagger.template.TemplateGet;
 import com.matera.swagger.template.TemplateNull;
@@ -10,7 +10,7 @@ import com.matera.swagger.template.TemplatePut;
 
 public class TemplateFactory {
 
-	public Template createTemplate(Templates type) {
+	public AbstractTemplate createTemplate(Templates type) {
 		
 		if(type == Templates.NULL){
 			return new TemplateNull();

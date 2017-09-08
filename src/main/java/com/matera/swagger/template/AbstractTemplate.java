@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.matera.swagger.model.Parameter;
 
-public abstract class Template {
+public abstract class AbstractTemplate {
 
 	@Expose
 	private String operationId;

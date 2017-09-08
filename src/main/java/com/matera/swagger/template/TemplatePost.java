@@ -2,7 +2,7 @@ package com.matera.swagger.template;
 
 import java.util.Set;
 
-public class TemplatePost extends Template {
+public class TemplatePost extends AbstractTemplate {
 
 	private Set<String> consumes; 
 	
