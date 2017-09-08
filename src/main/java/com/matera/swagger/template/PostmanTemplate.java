@@ -1,15 +1,12 @@
 package com.matera.swagger.template;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 
-import com.google.gson.Gson;
 import com.matera.swagger.model.postman.InfoPostman;
 import com.matera.swagger.model.postman.ItemPostman;
 import com.matera.swagger.model.postman.VariablePostman;
 
-public class TemplateFilePostman {
+public class PostmanTemplate {
 
 	private List<VariablePostman> variables;
 
@@ -39,22 +36,6 @@ public class TemplateFilePostman {
 
 	public void setItem(List<ItemPostman> item) {
 		this.item = item;
-	}
-
-	public void generateFile(TemplateFilePostman templateFile) {
-
-		Gson gson = new Gson();
-		
-		String json = gson.toJson(templateFile);
-		
-		try {
-			FileWriter file = new FileWriter("");
-			file.write(json);
-			file.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 }
