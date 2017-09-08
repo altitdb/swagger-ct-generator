@@ -9,7 +9,13 @@ import com.google.common.collect.Iterables;
 
 public class Request {
 
+	private static final String METHOD_DELETE = "DELETE";
+	private static final String METHOD_PUT = "PUT";
+	private static final String METHOD_POST = "POST";
+	private static final String METHOD_GET = "GET";
+	
 	private String name;
+	private String method;
 	private String uri;
 	private String baseUrl;
 	private String url;
@@ -59,6 +65,8 @@ public class Request {
 			request.validateBaseUrl();
 			request.validateUri();
 			request.validatePathParam();
+			request.validateMethod();
+			request.validateBody();
 			request.parsePathParam();
 			request.parseQueryParam();
 			return request;
@@ -98,13 +106,44 @@ public class Request {
 			request.name = name;
 			return this;
 		}
+
+		public RequestBuilder withMethod(String method) {
+			request.method = method;
+			return this;
+		}
 	}
 
 	private void buildUrl() {
 		this.url = StringUtils.join(this.baseUrl, this.uri);
 	}
 
-	public void parseQueryParam() {
+	public void validateBody() {
+		boolean isGet = isGet();
+		boolean hasBody = StringUtils.isNotBlank(this.body);
+		if (isGet && hasBody) {
+			throw new IllegalArgumentException("The field body does not must be informed with GET method.");
+		}
+	}
+
+	private void validateMethod() {
+		mandatoryMethod();
+		validMethod();
+	}
+
+	private void validMethod() {
+		boolean contains = ImmutableSet.of(METHOD_GET, METHOD_POST, METHOD_PUT, METHOD_DELETE).contains(this.method);
+		if (!contains) {
+			throw new IllegalArgumentException("The method is not available in request.");
+		}
+	}
+
+	private void mandatoryMethod() {
+		if (StringUtils.isBlank(this.method)) {
+			throw new IllegalArgumentException("The field method is mandatory.");
+		}
+	}
+
+	private void parseQueryParam() {
 		if (!this.queryParams.isEmpty()) {
 			this.url = StringUtils.join(this.url, "?");
 			QueryParam last = Iterables.getLast(queryParams);
@@ -145,6 +184,22 @@ public class Request {
 		if (StringUtils.isBlank(this.uri)) {
 			throw new IllegalArgumentException("The uri value cannot be null or empty.");
 		}		
+	}
+
+	public boolean isGet() {
+		return METHOD_GET.equalsIgnoreCase(this.method);
+	}
+
+	public boolean isPost() {
+		return METHOD_POST.equalsIgnoreCase(this.method);
+	}
+
+	public boolean isPut() {
+		return METHOD_PUT.equalsIgnoreCase(this.method);
+	}
+
+	public boolean isDelete() {
+		return METHOD_DELETE.equalsIgnoreCase(this.method);
 	}
 
 }
