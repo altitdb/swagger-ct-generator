@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.matera.swagger.model.swagger.Info;
+import com.matera.swagger.model.swagger.Parameter;
+import com.matera.swagger.model.swagger.Path;
 import com.matera.swagger.model.swagger.Swagger;
 
 import junit.framework.Assert;
@@ -54,6 +56,32 @@ public class SwaggerLoaderTest {
 	@Test
 	public void shouldReturnDefinitions() {
 		Assert.assertNotNull(swagger.getDefinitions());
+	}
+	
+	@Test
+	public void shouldReturnParameters() {
+		Path path = swagger.getPaths().get("/v1/account/balance/{branch}/{account}");
+		Assert.assertNotNull(path.getParameters());
+	}
+	
+	@Test
+	public void shouldReturnAmountParameters() {
+		Path path = swagger.getPaths().get("/v1/account/balance/{branch}/{account}");
+		Assert.assertEquals(2, path.getParameters().size());
+	}
+
+	@Test
+	public void shouldReturnParameterValues() {
+		Path path = swagger.getPaths().get("/v1/account/balance/{branch}/{account}");
+		Parameter actual = path.getParameters().get(0);
+		Parameter parameter = new Parameter();
+		parameter.setName("branch");
+		parameter.setIn("path");
+		parameter.setDescription("Branch");
+		parameter.setRequired(true);
+		parameter.setType("integer");
+		parameter.setFormat("int32");
+		Assert.assertEquals(parameter, actual);
 	}
 
 }
