@@ -2,15 +2,15 @@ package com.matera.swagger.model.postman;
 
 import java.util.List;
 
-public class RequestPostman {
+public class Request {
 
 	private String url;
 
 	private String method;
 
-	private List<HeaderPostman> header;
+	private List<Header> header;
 
-	private BodyPostman body;
+	private Body body;
 
 	private String description;
 
@@ -30,19 +30,19 @@ public class RequestPostman {
 		this.method = method;
 	}
 
-	public List<HeaderPostman> getHeader() {
+	public List<Header> getHeader() {
 		return header;
 	}
 
-	public void setHeader(List<HeaderPostman> header) {
+	public void setHeader(List<Header> header) {
 		this.header = header;
 	}
 
-	public BodyPostman getBody() {
+	public Body getBody() {
 		return body;
 	}
 
-	public void setBody(BodyPostman body) {
+	public void setBody(Body body) {
 		this.body = body;
 	}
 

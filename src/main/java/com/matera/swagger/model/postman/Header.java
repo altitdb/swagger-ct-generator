@@ -1,6 +1,6 @@
 package com.matera.swagger.model.postman;
 
-public class HeaderPostman {
+public class Header {
 
 	private String key;
 

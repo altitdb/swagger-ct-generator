@@ -1,6 +1,6 @@
 package com.matera.swagger.model.postman;
 
-public class BodyPostman {
+public class Body {
 
 	private String mode;
 

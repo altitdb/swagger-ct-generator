@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.matera.swagger.template.PostmanTemplate;
+import com.matera.swagger.model.postman.Postman;
 
 public class FileGeneratorTest {
 
@@ -14,6 +14,6 @@ public class FileGeneratorTest {
 	@Test
 	public void shouldValidatePath() {
 		FileGenerator fileGenerator = new FileGenerator();
-		fileGenerator.generateFile(null, new PostmanTemplate());
+		fileGenerator.generateFile(null, new Postman());
 	}
 }

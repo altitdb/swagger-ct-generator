@@ -11,13 +11,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
-import com.matera.swagger.template.PostmanTemplate;
+import com.matera.swagger.model.postman.Postman;
 
 public class FileGenerator {
 
 	private static final Logger LOG = LogManager.getRootLogger();
 	
-	public void generateFile(String path, PostmanTemplate template) {
+	public void generateFile(String path, Postman template) {
 		Gson gson = new Gson();
 		String json = gson.toJson(template);
 		if (StringUtils.isBlank(path)) {
