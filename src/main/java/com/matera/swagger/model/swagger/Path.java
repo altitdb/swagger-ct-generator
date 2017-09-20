@@ -1,20 +1,33 @@
 package com.matera.swagger.model.swagger;
 
 import java.util.List;
-import java.util.Map;
 
 public class Path {
-	
-	private List<Parameter> parameters;
 
-	private Map<String, HttpMethod> httpMethod;
+	private List<Parameter> parameters;
+	private HttpMethod get;
+	private HttpMethod post;
+	private HttpMethod delete;
+	private HttpMethod put;
 
 	public List<Parameter> getParameters() {
 		return parameters;
 	}
 
-	public Map<String, HttpMethod> getHttpMethod() {
-		return httpMethod;
+	public HttpMethod getGet() {
+		return get;
+	}
+
+	public HttpMethod getPost() {
+		return post;
+	}
+
+	public HttpMethod getDelete() {
+		return delete;
+	}
+
+	public HttpMethod getPut() {
+		return put;
 	}
 
 }

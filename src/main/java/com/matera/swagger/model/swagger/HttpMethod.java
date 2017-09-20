@@ -6,17 +6,11 @@ import java.util.Set;
 public class HttpMethod {
 
 	private String operationId;
-
 	private String summary;
-
 	private Set<String> tags;
-
 	private String description;
-
 	private Set<String> produces;
-
 	private List<Parameter> parameters;
-
 	private Responses responses;
 
 	public String getOperationId() {

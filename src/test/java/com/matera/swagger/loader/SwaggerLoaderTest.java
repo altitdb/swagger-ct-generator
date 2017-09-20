@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.matera.swagger.model.swagger.HttpMethod;
 import com.matera.swagger.model.swagger.Info;
 import com.matera.swagger.model.swagger.Parameter;
 import com.matera.swagger.model.swagger.Path;
@@ -82,6 +83,20 @@ public class SwaggerLoaderTest {
 		parameter.setType("integer");
 		parameter.setFormat("int32");
 		Assert.assertEquals(parameter, actual);
+	}
+	
+	@Test
+	public void shouldReturnGetMethod() {
+		Path path = swagger.getPaths().get("/v1/account/balance/{branch}/{account}");
+		HttpMethod method = path.getGet();
+		Assert.assertNotNull(method);
+	}
+	
+	@Test
+	public void shouldReturnPostMethod() {
+		Path path = swagger.getPaths().get("/v1/scheduling/cancel/{id}");
+		HttpMethod method = path.getPost();
+		Assert.assertNotNull(method);
 	}
 
 }
