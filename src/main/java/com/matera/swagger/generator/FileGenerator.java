@@ -17,7 +17,7 @@ public class FileGenerator {
 
 	private static final Logger LOG = LogManager.getRootLogger();
 	
-	public void generateFile(String path, Postman template) {
+	public static void generateFile(String path, Postman template) {
 		Gson gson = new Gson();
 		String json = gson.toJson(template);
 		if (StringUtils.isBlank(path)) {
@@ -40,7 +40,7 @@ public class FileGenerator {
 		
 	}
 
-	private String getFormattedDate() {
+	private static String getFormattedDate() {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		return simpleDateFormat.format(new Date());
 	}

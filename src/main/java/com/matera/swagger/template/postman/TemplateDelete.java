@@ -3,6 +3,7 @@ package com.matera.swagger.template.postman;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.matera.swagger.model.postman.Body;
 import com.matera.swagger.model.postman.Header;
 import com.matera.swagger.model.postman.Item;
 import com.matera.swagger.model.postman.Postman;
@@ -36,11 +37,14 @@ public class TemplateDelete {
 
 		request.setHeader(headers);
 
+		Body body = new Body();
+		request.setBody(body);
+
 		String descriptionRequest = postSwagger.getDescription();
 		request.setDescription(descriptionRequest);
 
 		Item item = new Item();
-		item.setName("");
+		item.setName(postSwagger.getSummary());
 		item.setRequest(request);
 
 		if (postman.getItem() == null) {

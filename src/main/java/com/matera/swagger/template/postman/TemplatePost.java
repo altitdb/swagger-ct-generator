@@ -48,7 +48,7 @@ public class TemplatePost {
 		request.setDescription(descriptionRequest);
 
 		Item item = new Item();
-		item.setName("");
+		item.setName(postSwagger.getSummary());
 		item.setRequest(request);
 
 		if (postman.getItem() == null) {
