@@ -24,15 +24,18 @@ public class TemplatePost {
 
 		List<Header> headers = new ArrayList<>();
 
-		for (Parameter parameter : postSwagger.getParameters()) {
+		if (postSwagger.getParameters() != null) {
 
-			if (parameter.getIn().equals("header")) {
+			for (Parameter parameter : postSwagger.getParameters()) {
 
-				Header header = new Header();
-				header.setKey(parameter.getName());
-				header.setValue("");
-				header.setDescription(parameter.getDescription());
-				headers.add(header);
+				if (parameter.getIn().equals("header")) {
+
+					Header header = new Header();
+					header.setKey(parameter.getName());
+					header.setValue("");
+					header.setDescription(parameter.getDescription());
+					headers.add(header);
+				}
 			}
 		}
 

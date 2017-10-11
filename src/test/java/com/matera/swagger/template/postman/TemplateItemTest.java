@@ -13,7 +13,7 @@ import com.matera.swagger.model.postman.Postman;
 import com.matera.swagger.model.swagger.Path;
 import com.matera.swagger.model.swagger.Swagger;
 
-public class TemplatePostmanTest {
+public class TemplateItemTest {
 
 	private Swagger swagger;
 
@@ -25,16 +25,14 @@ public class TemplatePostmanTest {
 	}
 
 	@Test
-	public void shouldGeneratePostmanTemplate() {
+	public void shouldGenerateItemTemplate() {
 
 		String url = "/v1/beneficiary/{branch}/{account}/{id}";
 		Path path = swagger.getPaths().get(url);
 
 		Postman postman = new Postman();
-
-		TemplatePost.generateTemplatePost(url, postman, path.getPost());
-		TemplateGet.generateTemplateGet(url, postman, path.getGet());
-		TemplateDelete.generateTemplateDelete(url, postman, path.getDelete());
+		
+		TemplateItem.generateTempalteItem(url, postman, path);
 
 		// Deve gerar o Item para uma classe que estava nula
 		Assert.assertNotNull(postman.getItem());
