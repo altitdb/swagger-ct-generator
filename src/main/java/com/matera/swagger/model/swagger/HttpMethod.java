@@ -9,6 +9,7 @@ public class HttpMethod {
 	private String summary;
 	private Set<String> tags;
 	private String description;
+	private Set<String> consumes;
 	private Set<String> produces;
 	private List<Parameter> parameters;
 	private Responses responses;
@@ -43,6 +44,14 @@ public class HttpMethod {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Set<String> getConsumes() {
+		return consumes;
+	}
+
+	public void setConsumes(Set<String> consumes) {
+		this.consumes = consumes;
 	}
 
 	public Set<String> getProduces() {
