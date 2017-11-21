@@ -7,13 +7,13 @@ import java.nio.file.Paths;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.matera.swagger.loader.DomainLoader;
+import com.matera.swagger.loader.DomainSwaggerLoader;
 
 import junit.framework.Assert;
 
-public class DomainLoaderTest {
+public class DomainSwaggerLoaderTest {
 
-	private static final DomainLoader domainLoader = new DomainLoader();
+	private static final DomainSwaggerLoader domainLoader = new DomainSwaggerLoader();
 	
 	@BeforeClass
 	public static void setup() throws IOException {

@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class DomainLoader {
+public class DomainSwaggerLoader {
 
 	private static final Logger LOG = LogManager.getRootLogger();
 	private static final Set<String> URI_DOMAIN = new TreeSet<>();
