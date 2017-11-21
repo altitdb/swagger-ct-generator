@@ -16,11 +16,11 @@ import org.json.simple.parser.ParseException;
 public class DomainLoader {
 
 	private static final Logger LOG = LogManager.getRootLogger();
-	private static final Set<String> URI_DOMAIN = new TreeSet<String>();
-	private static final Set<String> HEADER_DOMAIN = new TreeSet<String>();
-	private static final Set<String> PATH_DOMAIN = new TreeSet<String>();
-	private static final Set<String> QUERY_DOMAIN = new TreeSet<String>();
-	private static final Set<String> BODY_DOMAIN = new TreeSet<String>();
+	private static final Set<String> URI_DOMAIN = new TreeSet<>();
+	private static final Set<String> HEADER_DOMAIN = new TreeSet<>();
+	private static final Set<String> PATH_DOMAIN = new TreeSet<>();
+	private static final Set<String> QUERY_DOMAIN = new TreeSet<>();
+	private static final Set<String> BODY_DOMAIN = new TreeSet<>();
 
 	public Set<String> getUriDomain() {
 		return URI_DOMAIN;
@@ -134,7 +134,7 @@ public class DomainLoader {
 
 	@SuppressWarnings("unchecked")
 	private static Set<String> handleDomain(JSONArray array, String type) {
-		Set<String> pathsDomain = new HashSet<String>();
+		Set<String> pathsDomain = new HashSet<>();
 		array.stream().filter(json -> ((JSONObject) json).get("in").equals(type))
 				.forEach(i -> pathsDomain.add(((JSONObject) i).get("name").toString()));
 		return pathsDomain;
@@ -142,7 +142,7 @@ public class DomainLoader {
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	private static Set<String> handleDomain(JSONObject jsonObject, JSONArray array) {
-		Set<String> pathsDomain = new HashSet<String>();
+		Set<String> pathsDomain = new HashSet<>();
 		Optional findFirst = array.stream().filter(json -> ((JSONObject) json).get("in").equals("body")).findFirst();
 		if (findFirst.isPresent()) {
 			JSONObject object = (JSONObject) findFirst.get();
