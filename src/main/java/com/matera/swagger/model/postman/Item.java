@@ -2,12 +2,10 @@ package com.matera.swagger.model.postman;
 
 import java.util.List;
 
-// Esse model deve receber um request genérico e refatorar para um request no padrão Postman
 public class Item {
 
 	private String name;
-	private Event event;
-	private Request request;
+	private RequestPostman request;
 	private List<Response> response;
 
 	public String getName() {
@@ -18,19 +16,11 @@ public class Item {
 		this.name = name;
 	}
 
-	public Event getEvent() {
-		return event;
-	}
-
-	public void setEvent(Event event) {
-		this.event = event;
-	}
-
-	public Request getRequest() {
+	public RequestPostman getRequest() {
 		return request;
 	}
 
-	public void setRequest(Request request) {
+	public void setRequest(RequestPostman request) {
 		this.request = request;
 	}
 

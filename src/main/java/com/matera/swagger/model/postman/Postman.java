@@ -6,7 +6,7 @@ public class Postman {
 
 	private List<Variable> variables;
 
-	private Info info;
+	private InfoPostman info;
 
 	private List<Item> item;
 
@@ -18,11 +18,11 @@ public class Postman {
 		this.variables = variables;
 	}
 
-	public Info getInfo() {
+	public InfoPostman getInfo() {
 		return info;
 	}
 
-	public void setInfo(Info info) {
+	public void setInfo(InfoPostman info) {
 		this.info = info;
 	}
 

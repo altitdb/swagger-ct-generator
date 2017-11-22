@@ -1,6 +1,6 @@
 package com.matera.swagger.template.postman;
 
-import com.matera.swagger.model.postman.Info;
+import com.matera.swagger.model.postman.InfoPostman;
 import com.matera.swagger.model.postman.Postman;
 import com.matera.swagger.model.swagger.Swagger;
 
@@ -10,7 +10,7 @@ public class TemplateInfo {
 
 	public static void generateTemplateInfo(Postman postman, Swagger swagger) {
 
-		Info info = new Info();
+		InfoPostman info = new InfoPostman();
 		info.setName(swagger.getInfo().getTitle());
 		info.setDescription(swagger.getInfo().getDescription());
 		info.setSchema(SCHEMA);

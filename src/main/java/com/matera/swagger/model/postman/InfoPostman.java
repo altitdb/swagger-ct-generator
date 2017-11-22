@@ -1,6 +1,6 @@
 package com.matera.swagger.model.postman;
 
-public class Info {
+public class InfoPostman {
 
 	private String name;
 

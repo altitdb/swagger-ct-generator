@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.matera.swagger.model.postman.Body;
-import com.matera.swagger.model.postman.Header;
+import com.matera.swagger.model.postman.HeaderPostman;
 import com.matera.swagger.model.postman.Item;
 import com.matera.swagger.model.postman.Postman;
-import com.matera.swagger.model.postman.Request;
+import com.matera.swagger.model.postman.RequestPostman;
 import com.matera.swagger.model.swagger.HttpMethod;
 import com.matera.swagger.model.swagger.Parameter;
 
@@ -18,11 +18,11 @@ public class TemplatePost {
 
 	public static void generateTemplatePost(String url, Postman postman, HttpMethod postSwagger) {
 
-		Request request = new Request();
+		RequestPostman request = new RequestPostman();
 		request.setUrl(url);
 		request.setMethod(POST);
 
-		List<Header> headers = new ArrayList<>();
+		List<HeaderPostman> headers = new ArrayList<>();
 
 		if (postSwagger.getParameters() != null) {
 
@@ -30,7 +30,7 @@ public class TemplatePost {
 
 				if (parameter.getIn().equals("header")) {
 
-					Header header = new Header();
+					HeaderPostman header = new HeaderPostman();
 					header.setKey(parameter.getName());
 					header.setValue("");
 					header.setDescription(parameter.getDescription());

@@ -28,6 +28,10 @@ public class Request {
 		return this.name;
 	}
 	
+	public String getMethod(){
+		return this.method;
+	}
+	
 	public String getUri() {
 		return this.uri;
 	}

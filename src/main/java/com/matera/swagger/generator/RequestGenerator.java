@@ -10,13 +10,12 @@ import com.matera.swagger.model.swagger.Swagger;
 
 public class RequestGenerator {
 
-	public List<Request> getRequests(Swagger swagger) {
-		System.out.println(swagger.getPaths().size());
+	public static List<Request> getRequests(Swagger swagger) {
 		List<Request> requests = new ArrayList<>();
 		Iterator<String> iterator = swagger.getPaths().keySet().iterator();
 		while (iterator.hasNext()) {
 			String uri = iterator.next();
-			Request request = new RequestBuilder().withBaseUrl("http://localhost:8080").withUri(uri)
+			Request request = new RequestBuilder().withName("").withBaseUrl("http://localhost:8080").withUri(uri)
 					.withMethod("GET").build();
 			requests.add(request);
 		}
