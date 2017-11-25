@@ -30,4 +30,33 @@ public class Path {
 		return put;
 	}
 
+	public void setGet(HttpMethod get) {
+		this.get = get;
+	}
+
+	public void setPost(HttpMethod post) {
+		this.post = post;
+	}
+
+	public void setDelete(HttpMethod delete) {
+		this.delete = delete;
+	}
+
+	public void setPut(HttpMethod put) {
+		this.put = put;
+	}
+
+	public String getMethod() {
+		if (get != null) {
+			return "GET";
+		} else if (post != null) {
+			return "POST";
+		} else if (put != null) {
+			return "PUT";
+		} else if (delete != null) {
+			return "DELETE";
+		}
+		throw new IllegalArgumentException("Method does match with GET, POST, PUT or DELETE");
+	}
+
 }

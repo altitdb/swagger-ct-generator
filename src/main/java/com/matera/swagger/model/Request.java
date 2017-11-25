@@ -13,7 +13,7 @@ public class Request {
 	private static final String METHOD_PUT = "PUT";
 	private static final String METHOD_POST = "POST";
 	private static final String METHOD_GET = "GET";
-	
+
 	private String name;
 	private String method;
 	private String uri;
@@ -27,11 +27,11 @@ public class Request {
 	public String getName() {
 		return this.name;
 	}
-	
-	public String getMethod(){
+
+	public String getMethod() {
 		return this.method;
 	}
-	
+
 	public String getUri() {
 		return this.uri;
 	}
@@ -47,23 +47,23 @@ public class Request {
 	public Set<Header> getHeaders() {
 		return this.headers;
 	}
-	
+
 	public Set<PathParam> getPathParams() {
 		return this.pathParams;
 	}
-	
+
 	public Set<QueryParam> getQueryParams() {
 		return this.queryParams;
 	}
-	
+
 	public String getBody() {
 		return this.body;
 	}
-	
+
 	public static class RequestBuilder {
 
 		private Request request = new Request();
-		
+
 		public Request build() {
 			request.buildUrl();
 			request.validateBaseUrl();
@@ -181,13 +181,13 @@ public class Request {
 	private void validateBaseUrl() {
 		if (StringUtils.isBlank(this.baseUrl)) {
 			throw new IllegalArgumentException("The baseUrl value cannot be null or empty.");
-		}		
+		}
 	}
-	
+
 	private void validateUri() {
 		if (StringUtils.isBlank(this.uri)) {
 			throw new IllegalArgumentException("The uri value cannot be null or empty.");
-		}		
+		}
 	}
 
 	public boolean isGet() {
@@ -204,6 +204,13 @@ public class Request {
 
 	public boolean isDelete() {
 		return METHOD_DELETE.equalsIgnoreCase(this.method);
+	}
+
+	@Override
+	public String toString() {
+		return "Request [name=" + name + ", method=" + method + ", uri=" + uri + ", baseUrl=" + baseUrl + ", url=" + url
+				+ ", headers=" + headers + ", pathParams=" + pathParams + ", queryParams=" + queryParams + ", body="
+				+ body + "]";
 	}
 
 }

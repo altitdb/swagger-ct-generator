@@ -25,6 +25,12 @@ public class RequestGeneratorTest {
 		String json = new String(Files.readAllBytes(Paths.get("src/test/resources/test.json")));
 		SwaggerLoader loader = new SwaggerLoader();
 		swagger = loader.loader(json);
+		domain = new Domain();
+		makeDomain();
+	}
+
+	private void makeDomain() {
+		
 	}
 
 	@Test
