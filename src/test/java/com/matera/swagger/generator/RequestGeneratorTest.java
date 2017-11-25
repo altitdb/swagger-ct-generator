@@ -11,11 +11,14 @@ import org.junit.Test;
 
 import com.matera.swagger.loader.SwaggerLoader;
 import com.matera.swagger.model.Request;
+import com.matera.swagger.model.domain.Domain;
 import com.matera.swagger.model.swagger.Swagger;
 
 public class RequestGeneratorTest {
 	
 	private Swagger swagger;
+	
+	private Domain domain;
 
 	@Before
 	public void setup() throws IOException {
@@ -27,7 +30,7 @@ public class RequestGeneratorTest {
 	@Test
 	public void shouldGenerateFirstRequest() {
 		RequestGenerator generator = new RequestGenerator();
-		List<Request> requests = generator.getRequests(swagger);
+		List<Request> requests = generator.getRequests(swagger, domain);
 		Assert.assertEquals(59, requests.size());
 	}
 

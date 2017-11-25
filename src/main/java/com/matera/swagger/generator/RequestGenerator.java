@@ -6,11 +6,12 @@ import java.util.List;
 
 import com.matera.swagger.model.Request;
 import com.matera.swagger.model.Request.RequestBuilder;
+import com.matera.swagger.model.domain.Domain;
 import com.matera.swagger.model.swagger.Swagger;
 
 public class RequestGenerator {
 
-	public static List<Request> getRequests(Swagger swagger) {
+	public List<Request> getRequests(Swagger swagger, Domain domain) {
 		List<Request> requests = new ArrayList<>();
 		Iterator<String> iterator = swagger.getPaths().keySet().iterator();
 		while (iterator.hasNext()) {

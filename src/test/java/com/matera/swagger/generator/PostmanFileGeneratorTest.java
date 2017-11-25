@@ -26,7 +26,7 @@ public class PostmanFileGeneratorTest {
 
 		swagger = loader.loader(json);
 
-		request = RequestGenerator.getRequests(swagger);
+		request = new RequestGenerator().getRequests(swagger, null);
 	}
 
 	@Test
